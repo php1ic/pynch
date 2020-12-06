@@ -18,7 +18,16 @@ As is the standard, you can confirm you have the necessary modules using the [re
 ```bash
 pip install --user -r requirements.txt
 ```
-After this, running `./app.py` will start up the server and the console will tell you where to point your browser (likely http://127.0.0.1:8050/).
+The file was automatically created with [pipreqs](https://pypi.org/project/pipreqs/), hence why versions are assigned to all modules.
+I am not aware of any version specific functionality that is used in this project.
+
+## Running
+
+With all of the necessary requirements installed, the below will start the app
+```bash
+./app.py
+```
+The console will tell you where to point your browser - likely http://127.0.0.1:8050/.
 
 ## Mass tables
 
