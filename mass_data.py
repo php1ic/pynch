@@ -21,7 +21,9 @@ class MassData:
     def masstable(self, year: int = 2003) -> pathlib.Path:
         return self.root_dir / self.data_dir / f"masstable{year}.json"
 
-    def _ingest_datafile(self, tablefile, year: int, verbosity: int = 1) -> pd.DataFrame:
+    def _ingest_datafile(
+        self, tablefile, year: int, verbosity: int = 1
+    ) -> pd.DataFrame:
         if verbosity > 0:
             print(f"Converting <{tablefile}> into a pandas dataframe")
 

@@ -59,7 +59,7 @@ def update_graph(y_var, x_value, year):
         data_frame=df_ff,
         x="Z",
         y=y_var,
-        hover_name='Symbol',
+        hover_name="Symbol",
         hover_data=[y_var],
         log_y=logit,
         template="plotly_dark",
