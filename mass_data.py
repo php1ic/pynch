@@ -3,8 +3,7 @@ import pathlib
 
 
 class MassData:
-    """
-    """
+    """"""
 
     def __init__(self):
         self.script_path = pathlib.Path(__file__)
@@ -19,7 +18,7 @@ class MassData:
         self._do_indexing()
 
     def masstable(self, year: int = 2003) -> pathlib.Path:
-        return self.root_dir / self.data_dir / f"masstable{year}.json"
+        return self.root_dir / self.data_dir / f"masstable_{year}.json"
 
     def _ingest_datafile(
         self, tablefile, year: int, verbosity: int = 1
