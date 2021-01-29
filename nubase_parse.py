@@ -93,11 +93,11 @@ class NubaseParser:
 
         exp = True if line.find("#") == -1 else False
 
-        df = pd.DataFrame([exp], columns=["Experimental"])
+        df = {"Experimental": exp}
         if not exp:
             line = line.replace("#", " ")
 
-        df['TableYear'] = self.year
+        df["TableYear"] = self.year
         df["A"] = self._read_as_int(line, nubase.START_A, nubase.END_A)
         df["Z"] = self._read_as_int(line, nubase.START_Z, nubase.END_Z)
         df["N"] = df["A"] - df["Z"]
@@ -135,7 +135,6 @@ class NubaseParser:
             else line[nubase.START_DECAYSTRING :].strip()
         )
 
-        # print(df)
         return df
 
     def _readable_line(self, line: str) -> bool:
@@ -158,6 +157,6 @@ class NubaseParser:
 
         print(f"{datetime.datetime.now()} Read all the lines")
 
-        return pd.concat(
-            [self._read_line(line) for line in lines if not self._readable_line(line)], ignore_index=True
+        return pd.DataFrame.from_dict(
+            [self._read_line(line) for line in lines if not self._readable_line(line)]
         )
