@@ -48,13 +48,14 @@ class NubaseFile:
         # END_DECAYSTRING = EOL;
 
 
-class NubaseParser:
+class NubaseParser(NubaseFile):
     """Parse the NUBASE data file
 
-    fkldsjfldskfj
+    A collection of functions to parse the weird format of the NUBASE file.
     """
 
     def __init__(self, filename: str, year: int):
+        super().__init__()
         self.filename = filename
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
@@ -68,10 +69,17 @@ class NubaseParser:
 
     def _read_as_float(self, line: str, start: int, end: int) -> float:
         """
-        Wrapper to return the slice if a string as an int
+        Wrapper to return the slice if a string as an float
         """
         data = line[start:end].strip()
         return float(data) if data else None
+
+    def _read_substring(self, line: str, start: int, end: int) -> str:
+        """
+        Wrapper to return the slice if a string
+        """
+        data = line[start:end].strip()
+        return data if data else None
 
     def _read_halflife(self, line: str, start: int, end: int) -> float:
         """"""
@@ -89,8 +97,6 @@ class NubaseParser:
         """
         Read a line of the file
         """
-        nubase = NubaseFile()
-
         exp = True if line.find("#") == -1 else False
 
         df = {"Experimental": exp}
@@ -98,41 +104,39 @@ class NubaseParser:
             line = line.replace("#", " ")
 
         df["TableYear"] = self.year
-        df["A"] = self._read_as_int(line, nubase.START_A, nubase.END_A)
-        df["Z"] = self._read_as_int(line, nubase.START_Z, nubase.END_Z)
+        df["A"] = self._read_as_int(line, self.START_A, self.END_A)
+        df["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
         df["N"] = df["A"] - df["Z"]
-        df["Level"] = self._read_as_int(line, nubase.START_STATE, nubase.END_STATE)
+        df["Level"] = self._read_as_int(line, self.START_STATE, self.END_STATE)
         df["NubaseMassExcess"] = self._read_as_float(
-            line, nubase.START_ME, nubase.END_ME
+            line, self.START_ME, self.END_ME
         )
         df["NubaseMassExcess_error"] = self._read_as_float(
-            line, nubase.START_DME, nubase.END_DME
+            line, self.START_DME, self.END_DME
         )
         df["LevelEnergy"] = self._read_as_float(
-            line, nubase.START_ISOMER, nubase.END_ISOMER
+            line, self.START_ISOMER, self.END_ISOMER
         )
         df["LevelEnergy_error"] = self._read_as_float(
-            line, nubase.START_DISOMER, nubase.END_DISOMER
+            line, self.START_DISOMER, self.END_DISOMER
         )
         df["HalfLife_value"] = self._read_halflife(
-            line, nubase.START_HALFLIFEVALUE, nubase.END_HALFLIFEVALUE
+            line, self.START_HALFLIFEVALUE, self.END_HALFLIFEVALUE
         )
-        df["HalfLife_unit"] = line[
-            nubase.START_HALFLIFEUNIT : nubase.END_HALFLIFEUNIT
-        ].strip()
+        df["HalfLife"] = self._read_substring(line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT)
         df["HalfLife_error"] = self._read_halflife_error(
-            line, nubase.START_HALFLIFEERROR, nubase.END_HALFLIFEERROR
+            line, self.START_HALFLIFEERROR, self.END_HALFLIFEERROR
         )
-        df["LevelSpin"] = line[nubase.START_SPIN : nubase.END_SPIN].strip()
+        df["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
         df["DiscoveryYear"] = (
-            self._read_as_int(line, nubase.START_YEAR, nubase.END_YEAR)
+            self._read_as_int(line, self.START_YEAR, self.END_YEAR)
             if self.year != 2003
             else 1900
         )
         df["Decay"] = (
-            line[nubase.START_DECAYSTRING_03 :].strip()
+            self._read_substring(line, self.START_DECAYSTRING_03, len(line))
             if self.year == 2003
-            else line[nubase.START_DECAYSTRING :].strip()
+            else self._read_substring(line, self.START_DECAYSTRING, len(line))
         )
 
         return df
@@ -142,10 +146,10 @@ class NubaseParser:
         Some lines have 'random' strings, ignore them
         """
         return (
-            line.find("stbl") != -1
-            or line.find("p-unst") != -1
-            or line.find("mix") != -1
-            or line.find("non-exist") != -1
+            line.find("stbl") == -1
+            and line.find("p-unst") == -1
+            and line.find("mix") == -1
+            and line.find("non-exist") == -1
         )
 
     def read_file(self):
@@ -158,5 +162,5 @@ class NubaseParser:
         print(f"{datetime.datetime.now()} Read all the lines")
 
         return pd.DataFrame.from_dict(
-            [self._read_line(line) for line in lines if not self._readable_line(line)]
+            [self._read_line(line) for line in lines if self._readable_line(line)]
         )

@@ -9,3 +9,4 @@ if __name__ == '__main__':
     df = data.read_file()
     print(datetime.datetime.now())
     print(df)
+    print(df[df['Level'] == 1])
