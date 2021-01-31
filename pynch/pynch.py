@@ -6,7 +6,7 @@ import nubase_parse
 import pathlib
 
 if __name__ == '__main__':
-    datafile = pathlib.Path(__file__) / ".." / "data" / "2003" / "nubtab03.asc"
+    datafile = pathlib.Path(__file__) / ".." / ".." / "data" / "2003" / "nubtab03.asc"
     datafile = datafile.resolve()
     data = nubase_parse.NubaseParser(datafile, 2003)
     print(datetime.datetime.now())
@@ -15,21 +15,21 @@ if __name__ == '__main__':
     # print(df)
     # print(df[df['Level'] == 1])
 
-    ame_file = pathlib.Path(__file__) / ".." / "data" / "2003" / "mass.mas03"
+    ame_file = pathlib.Path(__file__) / ".." / ".." / "data" / "2003" / "mass.mas03"
     ame_file = ame_file.resolve()
 
     ame = ame_mass_parse.AMEMassParser(ame_file, 2003)
     ame_df = ame.read_file()
     # print(ame_df)
 
-    ame_reaction_1 = pathlib.Path(__file__) / ".." / "data" / "2003" / "rct1.mas03"
+    ame_reaction_1 = pathlib.Path(__file__) / ".." / ".." / "data" / "2003" / "rct1.mas03"
     ame_reaction_1 = ame_reaction_1.resolve()
 
     ame_r1 = ame_reaction_1_parse.AMEReactionParser_1(ame_reaction_1, 2003)
     ame_r1_df = ame_r1.read_file()
     # print(ame_r1_df)
 
-    ame_reaction_2 = pathlib.Path(__file__) / ".." / "data" / "2003" / "rct2.mas03"
+    ame_reaction_2 = pathlib.Path(__file__) / ".." / ".." / "data" / "2003" / "rct2.mas03"
     ame_reaction_2 = ame_reaction_2.resolve()
 
     ame_r2 = ame_reaction_2_parse.AMEReactionParser_2(ame_reaction_2, 2003)
