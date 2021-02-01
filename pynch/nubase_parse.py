@@ -47,23 +47,24 @@ class NubaseParser(NubaseFile):
         df["A"] = self._read_as_int(line, self.START_A, self.END_A)
         df["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
         df["N"] = df["A"] - df["Z"]
+
         df["NubaseMassExcess"] = self._read_as_float(
             line, self.START_ME, self.END_ME
         )
-        df["NubaseMassExcess_error"] = self._read_as_float(
+        df["NubaseMassExcessError"] = self._read_as_float(
             line, self.START_DME, self.END_DME
         )
         # df["LevelEnergy"] = self._read_as_float(
         #     line, self.START_ISOMER, self.END_ISOMER
         # )
-        # df["LevelEnergy_error"] = self._read_as_float(
+        # df["LevelEnergyError"] = self._read_as_float(
         #     line, self.START_DISOMER, self.END_DISOMER
         # )
-        df["HalfLife_value"] = self._read_halflife(
+        df["HalfLifeValue"] = self._read_halflife(
             line, self.START_HALFLIFEVALUE, self.END_HALFLIFEVALUE
         )
-        df["HalfLife_unit"] = self._read_substring(line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT)
-        df["HalfLife_error"] = self._read_halflife_error(
+        df["HalfLifeUnit"] = self._read_substring(line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT)
+        df["HalfLifeError"] = self._read_halflife_error(
             line, self.START_HALFLIFEERROR, self.END_HALFLIFEERROR
         )
         df["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
