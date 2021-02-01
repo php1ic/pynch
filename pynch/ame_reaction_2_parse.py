@@ -1,4 +1,3 @@
-import datetime
 import pandas as pd
 
 from ame_reaction_2_file import AMEReactionFile_2
@@ -58,6 +57,5 @@ class AMEReactionParser_2(AMEReactionFile_2):
             lines = [line.rstrip() for line in f]
 
         lines = lines[self.AME_HEADER:]
-        print(f"{datetime.datetime.now()} Read all the lines")
 
         return pd.DataFrame.from_dict([self._read_line(line) for line in lines])

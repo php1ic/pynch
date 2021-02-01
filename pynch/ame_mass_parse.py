@@ -1,4 +1,3 @@
-import datetime
 import pandas as pd
 
 from ame_mass_file import AMEMassFile
@@ -20,14 +19,10 @@ class AMEMassParser(AMEMassFile):
         """
         Read a line from the file
         """
-        # exp = True if line.find("#") == -1 else False
-
-        # df = {"Experimental": exp}
         if line.find("#") != -1:
             line = line.replace("#", " ")
 
         df = {"TableYear": self.year}
-        df["Level"] = 0
         df["A"] = self._read_as_int(line, self.START_A, self.END_A)
         df["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
         df["N"] = df["A"] - df["Z"]
@@ -54,6 +49,5 @@ class AMEMassParser(AMEMassFile):
             lines = [line.rstrip() for line in f]
 
         lines = lines[self.AME_HEADER:]
-        print(f"{datetime.datetime.now()} Read all the lines")
 
         return pd.DataFrame.from_dict([self._read_line(line) for line in lines])

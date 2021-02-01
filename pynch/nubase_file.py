@@ -27,7 +27,7 @@ class NubaseFile(Parse):
         self.START_DISOMER = 48
         self.END_DISOMER = 56
         self.START_HALFLIFEVALUE = 60
-        self.END_HALFLIFEVALUE = 69
+        self.END_HALFLIFEVALUE = 68
         self.START_HALFLIFEUNIT = 69
         self.END_HALFLIFEUNIT = 71
         self.START_HALFLIFEERROR = 72

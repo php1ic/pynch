@@ -29,10 +29,14 @@ class NubaseParser(NubaseFile):
         number = re.sub(r"[<>?~a-z]", "", data)
         return float(number) if number else None
 
-    def _read_line(self, line: str):
+    def _read_line(self, line: str) -> dict:
         """
         Read a line of the file
         """
+        # Ignore isomers for the moment
+        if self._read_as_int(line, self.START_STATE, self.END_STATE) > 0:
+            return dict()
+
         exp = True if line.find("#") == -1 else False
 
         df = {"Experimental": exp}
@@ -43,19 +47,18 @@ class NubaseParser(NubaseFile):
         df["A"] = self._read_as_int(line, self.START_A, self.END_A)
         df["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
         df["N"] = df["A"] - df["Z"]
-        df["Level"] = self._read_as_int(line, self.START_STATE, self.END_STATE)
         df["NubaseMassExcess"] = self._read_as_float(
             line, self.START_ME, self.END_ME
         )
         df["NubaseMassExcess_error"] = self._read_as_float(
             line, self.START_DME, self.END_DME
         )
-        df["LevelEnergy"] = self._read_as_float(
-            line, self.START_ISOMER, self.END_ISOMER
-        )
-        df["LevelEnergy_error"] = self._read_as_float(
-            line, self.START_DISOMER, self.END_DISOMER
-        )
+        # df["LevelEnergy"] = self._read_as_float(
+        #     line, self.START_ISOMER, self.END_ISOMER
+        # )
+        # df["LevelEnergy_error"] = self._read_as_float(
+        #     line, self.START_DISOMER, self.END_DISOMER
+        # )
         df["HalfLife_value"] = self._read_halflife(
             line, self.START_HALFLIFEVALUE, self.END_HALFLIFEVALUE
         )
@@ -94,8 +97,6 @@ class NubaseParser(NubaseFile):
         """
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
-
-        print(f"{datetime.datetime.now()} Read all the lines")
 
         return pd.DataFrame.from_dict(
             [self._read_line(line) for line in lines if self._readable_line(line)]
