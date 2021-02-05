@@ -1,4 +1,3 @@
-import datetime
 import pandas as pd
 import re
 
@@ -39,47 +38,47 @@ class NubaseParser(NubaseFile):
 
         exp = True if line.find("#") == -1 else False
 
-        df = {"Experimental": exp}
+        data = {"Experimental": exp}
         if not exp:
             line = line.replace("#", " ")
 
-        df["TableYear"] = self.year
-        df["A"] = self._read_as_int(line, self.START_A, self.END_A)
-        df["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
-        df["N"] = df["A"] - df["Z"]
+        data["TableYear"] = self.year
+        data["A"] = self._read_as_int(line, self.START_A, self.END_A)
+        data["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
+        data["N"] = data["A"] - data["Z"]
 
-        df["NubaseMassExcess"] = self._read_as_float(
-            line, self.START_ME, self.END_ME
-        )
-        df["NubaseMassExcessError"] = self._read_as_float(
+        data["NubaseMassExcess"] = self._read_as_float(line, self.START_ME, self.END_ME)
+        data["NubaseMassExcessError"] = self._read_as_float(
             line, self.START_DME, self.END_DME
         )
-        # df["LevelEnergy"] = self._read_as_float(
+        # data["LevelEnergy"] = self._read_as_float(
         #     line, self.START_ISOMER, self.END_ISOMER
         # )
-        # df["LevelEnergyError"] = self._read_as_float(
+        # data["LevelEnergyError"] = self._read_as_float(
         #     line, self.START_DISOMER, self.END_DISOMER
         # )
-        df["HalfLifeValue"] = self._read_halflife(
+        data["HalfLifeValue"] = self._read_halflife(
             line, self.START_HALFLIFEVALUE, self.END_HALFLIFEVALUE
         )
-        df["HalfLifeUnit"] = self._read_substring(line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT)
-        df["HalfLifeError"] = self._read_halflife_error(
+        data["HalfLifeUnit"] = self._read_substring(
+            line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT
+        )
+        data["HalfLifeError"] = self._read_halflife_error(
             line, self.START_HALFLIFEERROR, self.END_HALFLIFEERROR
         )
-        df["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
-        df["DiscoveryYear"] = (
+        data["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
+        data["DiscoveryYear"] = (
             self._read_as_int(line, self.START_YEAR, self.END_YEAR)
             if self.year != 2003
             else 1900
         )
-        df["Decay"] = (
+        data["Decay"] = (
             self._read_substring(line, self.START_DECAYSTRING_03, len(line))
             if self.year == 2003
             else self._read_substring(line, self.START_DECAYSTRING, len(line))
         )
 
-        return df
+        return data
 
     def _readable_line(self, line: str) -> bool:
         """
@@ -99,6 +98,8 @@ class NubaseParser(NubaseFile):
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 
-        return pd.DataFrame.from_dict(
-            [self._read_line(line) for line in lines if self._readable_line(line)]
-        )
+        the_lines = [
+            self._read_line(line) for line in lines if self._readable_line(line)
+        ]
+
+        return pd.DataFrame.from_dict([d for d in the_lines if d])

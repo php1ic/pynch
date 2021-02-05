@@ -22,24 +22,24 @@ class AMEMassParser(AMEMassFile):
         if line.find("#") != -1:
             line = line.replace("#", " ")
 
-        df = {"TableYear": self.year}
-        df["A"] = self._read_as_int(line, self.START_A, self.END_A)
-        df["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
-        df["N"] = df["A"] - df["Z"]
+        data = {"TableYear": self.year}
+        data["A"] = self._read_as_int(line, self.START_A, self.END_A)
+        data["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
+        data["N"] = data["A"] - data["Z"]
 
-        df["AMEMassExcess"] = self._read_as_float(line, self.START_ME, self.END_ME)
-        df["AMEMassExcessError"] = self._read_as_float(line, self.START_DME, self.END_DME)
+        data["AMEMassExcess"] = self._read_as_float(line, self.START_ME, self.END_ME)
+        data["AMEMassExcessError"] = self._read_as_float(line, self.START_DME, self.END_DME)
 
-        df["BindingEnergyPerA"] = self._read_as_float(line, self.START_BE_PER_A, self.END_BE_PER_A)
-        df["BindingEnergyPerAError"] = self._read_as_float(line, self.START_DBE_PER_A, self.END_DBE_PER_A)
+        data["BindingEnergyPerA"] = self._read_as_float(line, self.START_BE_PER_A, self.END_BE_PER_A)
+        data["BindingEnergyPerAError"] = self._read_as_float(line, self.START_DBE_PER_A, self.END_DBE_PER_A)
 
-        df["BetaDecayEnergy"] = self._read_as_float(line, self.START_BETA_DECAY_ENERGY, self.END_BETA_DECAY_ENERGY)
-        df["BetaDecayEnergyError"] = self._read_as_float(line, self.START_DBETA_DECAY_ENERGY, self.END_DBETA_DECAY_ENERGY)
+        data["BetaDecayEnergy"] = self._read_as_float(line, self.START_BETA_DECAY_ENERGY, self.END_BETA_DECAY_ENERGY)
+        data["BetaDecayEnergyError"] = self._read_as_float(line, self.START_DBETA_DECAY_ENERGY, self.END_DBETA_DECAY_ENERGY)
 
-        df["AtomicMass"] = self._read_as_float(line, self.START_MICRO_U, self.END_MICRO_U)
-        df["AtomicMassError"] = self._read_as_float(line, self.START_MICRO_DU, self.END_MICRO_DU)
+        data["AtomicMass"] = self._read_as_float(line, self.START_MICRO_U, self.END_MICRO_U)
+        data["AtomicMassError"] = self._read_as_float(line, self.START_MICRO_DU, self.END_MICRO_DU)
 
-        return df
+        return data
 
     def read_file(self):
         """

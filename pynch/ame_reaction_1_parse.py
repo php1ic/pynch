@@ -24,30 +24,30 @@ class AMEReactionParser_1(AMEReactionFile_1):
         if line.find("#") != -1:
             line = line.replace("#", " ")
 
-        df = {"TableYear": self.year}
-        df["A"] = self._read_as_int(line, self.START_R1_A, self.END_R1_A)
-        df["Z"] = self._read_as_int(line, self.START_R1_Z, self.END_R1_Z)
-        df["N"] = df["A"] - df["Z"]
+        data = {"TableYear": self.year}
+        data["A"] = self._read_as_int(line, self.START_R1_A, self.END_R1_A)
+        data["Z"] = self._read_as_int(line, self.START_R1_Z, self.END_R1_Z)
+        data["N"] = data["A"] - data["Z"]
 
-        df["TwoNeutronDripLine"] = self._read_as_float(line, self.START_S2N, self.END_S2N)
-        df["TwoNeutronDripLineError"] = self._read_as_float(line, self.START_DS2N, self.END_DS2N)
+        data["TwoNeutronDripLine"] = self._read_as_float(line, self.START_S2N, self.END_S2N)
+        data["TwoNeutronDripLineError"] = self._read_as_float(line, self.START_DS2N, self.END_DS2N)
 
-        df["TwoProtonDripLine"] = self._read_as_float(line, self.START_S2P, self.END_S2P)
-        df["TwoProtonDripLineError"] = self._read_as_float(line, self.START_DS2P, self.END_DS2P)
+        data["TwoProtonDripLine"] = self._read_as_float(line, self.START_S2P, self.END_S2P)
+        data["TwoProtonDripLineError"] = self._read_as_float(line, self.START_DS2P, self.END_DS2P)
 
-        df["QAlpha"] = self._read_as_float(line, self.START_QA, self.END_QA)
-        df["QAlphaError"] = self._read_as_float(line, self.START_DQA, self.END_DQA)
+        data["QAlpha"] = self._read_as_float(line, self.START_QA, self.END_QA)
+        data["QAlphaError"] = self._read_as_float(line, self.START_DQA, self.END_DQA)
 
-        df["QTwoBeta"] = self._read_as_float(line, self.START_Q2B, self.END_Q2B)
-        df["QTwoBetaError"] = self._read_as_float(line, self.START_DQ2B, self.END_DQ2B)
+        data["QTwoBeta"] = self._read_as_float(line, self.START_Q2B, self.END_Q2B)
+        data["QTwoBetaError"] = self._read_as_float(line, self.START_DQ2B, self.END_DQ2B)
 
-        df["QEpsilon"] = self._read_as_float(line, self.START_QEP, self.END_QEP)
-        df["QEpsilonError"] = self._read_as_float(line, self.START_DQEP, self.END_DQEP)
+        data["QEpsilon"] = self._read_as_float(line, self.START_QEP, self.END_QEP)
+        data["QEpsilonError"] = self._read_as_float(line, self.START_DQEP, self.END_DQEP)
 
-        df["QBetaNeutron"] = self._read_as_float(line, self.START_QBN, self.END_QBN)
-        df["QBetaNeutronError"] = self._read_as_float(line, self.START_DQBN, self.END_DQBN)
+        data["QBetaNeutron"] = self._read_as_float(line, self.START_QBN, self.END_QBN)
+        data["QBetaNeutronError"] = self._read_as_float(line, self.START_DQBN, self.END_DQBN)
 
-        return df
+        return data
 
     def read_file(self):
         """
