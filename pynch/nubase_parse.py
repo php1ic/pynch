@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-from nubase_file import NubaseFile
+from .nubase_file import NubaseFile
 
 
 class NubaseParser(NubaseFile):
@@ -16,15 +16,15 @@ class NubaseParser(NubaseFile):
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
-    def _read_halflife(self, line: str, start: int, end: int) -> float:
+    def _read_halflife(self, line: str) -> float:
         """"""
-        data = line[start:end].strip()
+        data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data)
         return float(number) if number else None
 
-    def _read_halflife_error(self, line: str, start: int, end: int) -> float:
+    def _read_halflife_error(self, line: str) -> float:
         """"""
-        data = line[start:end].strip()
+        data = line[self.START_HALFLIFEERROR: self.END_HALFLIFEERROR].strip()
         number = re.sub(r"[<>?~a-z]", "", data)
         return float(number) if number else None
 
@@ -57,15 +57,11 @@ class NubaseParser(NubaseFile):
         # data["LevelEnergyError"] = self._read_as_float(
         #     line, self.START_DISOMER, self.END_DISOMER
         # )
-        data["HalfLifeValue"] = self._read_halflife(
-            line, self.START_HALFLIFEVALUE, self.END_HALFLIFEVALUE
-        )
+        data["HalfLifeValue"] = self._read_halflife(line)
         data["HalfLifeUnit"] = self._read_substring(
             line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT
         )
-        data["HalfLifeError"] = self._read_halflife_error(
-            line, self.START_HALFLIFEERROR, self.END_HALFLIFEERROR
-        )
+        data["HalfLifeError"] = self._read_halflife_error(line)
         data["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
         data["DiscoveryYear"] = (
             self._read_as_int(line, self.START_YEAR, self.END_YEAR)

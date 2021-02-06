@@ -1,4 +1,4 @@
-from parse import Parse
+from .parse import Parse
 
 
 class NubaseFile(Parse):
