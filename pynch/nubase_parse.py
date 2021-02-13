@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-from .nubase_file import NubaseFile
+from pynch.nubase_file import NubaseFile
 
 
 class NubaseParser(NubaseFile):

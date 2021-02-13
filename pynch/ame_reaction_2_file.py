@@ -1,4 +1,4 @@
-from parse import Parse
+from pynch.parse import Parse
 
 
 class AMEReactionFile_2(Parse):
@@ -18,7 +18,7 @@ class AMEReactionFile_2(Parse):
         self.START_DSN = 23
         self.END_DSN = 30
         self.START_SP = 32
-        self.END_SP = 39
+        self.END_SP = 40
         self.START_DSP = 41
         self.END_DSP = 48
         self.START_Q4B = 49
@@ -26,7 +26,7 @@ class AMEReactionFile_2(Parse):
         self.START_DQ4B = 59
         self.END_DQ4B = 66
         self.START_QDA = 67
-        self.END_QDA = 75
+        self.END_QDA = 76
         self.START_DQDA = 77
         self.END_DQDA = 84
         self.START_QPA = 85
@@ -34,6 +34,6 @@ class AMEReactionFile_2(Parse):
         self.START_DQPA = 95
         self.END_DQPA = 102
         self.START_QNA = 103
-        self.END_QNA = 111
+        self.END_QNA = 112
         self.START_DQNA = 113
         self.END_DQNA = 125

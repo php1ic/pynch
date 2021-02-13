@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ame_reaction_2_file import AMEReactionFile_2
+from pynch.ame_reaction_2_file import AMEReactionFile_2
 
 
 class AMEReactionParser_2(AMEReactionFile_2):

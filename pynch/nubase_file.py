@@ -1,4 +1,4 @@
-from .parse import Parse
+from pynch.parse import Parse
 
 
 class NubaseFile(Parse):

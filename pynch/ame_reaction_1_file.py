@@ -1,4 +1,4 @@
-from parse import Parse
+from pynch.parse import Parse
 
 
 class AMEReactionFile_1(Parse):
@@ -14,11 +14,11 @@ class AMEReactionFile_1(Parse):
         self.START_R1_Z = 8
         self.END_R1_Z = 11
         self.START_S2N = 14
-        self.END_S2N = 21
+        self.END_S2N = 22
         self.START_DS2N = 23
         self.END_DS2N = 30
         self.START_S2P = 32
-        self.END_S2P = 39
+        self.END_S2P = 40
         self.START_DS2P = 41
         self.END_DS2P = 48
         self.START_QA = 50

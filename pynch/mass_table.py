@@ -1,9 +1,9 @@
 import pathlib
 
-from nubase_parse import NubaseParser
-from ame_mass_parse import AMEMassParser
-from ame_reaction_1_parse import AMEReactionParser_1
-from ame_reaction_2_parse import AMEReactionParser_2
+from pynch.nubase_parse import NubaseParser
+from pynch.ame_mass_parse import AMEMassParser
+from pynch.ame_reaction_1_parse import AMEReactionParser_1
+from pynch.ame_reaction_2_parse import AMEReactionParser_2
 
 
 class MassTable:
@@ -26,6 +26,7 @@ class MassTable:
         """
         if self.year not in self.years:
             print(f"WARNING: {self.year} not a valid table year, using {self.years[-1]}")
+            self.year = self.years[-1]
 
         data_dir = self.data_path / pathlib.Path(str(self.year))
         data_dir = data_dir.resolve()

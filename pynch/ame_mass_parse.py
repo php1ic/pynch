@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ame_mass_file import AMEMassFile
+from pynch.ame_mass_file import AMEMassFile
 
 
 class AMEMassParser(AMEMassFile):
