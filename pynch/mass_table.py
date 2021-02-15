@@ -62,15 +62,3 @@ class MassTable:
         """
         df = self.ame_mass_df.merge(self.ame_reaction_1_df, on=['A', 'Z', 'N', 'TableYear'])
         self.ame_df = df.merge(self.ame_reaction_2_df, on=['A', 'Z', 'N', 'TableYear'])
-
-
-if __name__ == '__main__':
-    table03 = MassTable(2016)
-    # table12 = mass_table.MassTable(2012)
-    # table16 = mass_table.MassTable(2016)
-
-    nubase = table03.nubase_df
-    ame = table03.ame_df
-
-    print(table03.nubase_df)
-    print(table03.ame_df)
