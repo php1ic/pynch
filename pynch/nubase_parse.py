@@ -46,6 +46,7 @@ class NubaseParser(NubaseFile):
         data["A"] = self._read_as_int(line, self.START_A, self.END_A)
         data["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
         data["N"] = data["A"] - data["Z"]
+        data["Symbol"] = self.z_to_symbol[data["Z"]]
 
         data["NubaseMassExcess"] = self._read_as_float(line, self.START_ME, self.END_ME)
         data["NubaseMassExcessError"] = self._read_as_float(

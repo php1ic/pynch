@@ -28,6 +28,7 @@ class AMEReactionParser_2(AMEReactionFile_2):
         data["A"] = self._read_as_int(line, self.START_R2_A, self.END_R2_A)
         data["Z"] = self._read_as_int(line, self.START_R2_Z, self.END_R2_Z)
         data["N"] = data["A"] - data["Z"]
+        data["Symbol"] = self.z_to_symbol[data["Z"]]
 
         data["OneNeutronDripLine"] = self._read_as_float(line, self.START_SN, self.END_SN)
         data["OneNeutronDripLineError"] = self._read_as_float(line, self.START_DSN, self.END_DSN)
