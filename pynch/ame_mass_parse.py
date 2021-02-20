@@ -4,9 +4,9 @@ from pynch.ame_mass_file import AMEMassFile
 
 
 class AMEMassParser(AMEMassFile):
-    """ Parse the first AME reaction file
+    """Parse the AME mass file
 
-    fjkdslfjskal
+    The format is known but I don't think python can easily parse it.
     """
 
     def __init__(self, filename: str, year: int):
@@ -48,6 +48,7 @@ class AMEMassParser(AMEMassFile):
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 
+        # Remove the header lines
         lines = lines[self.AME_HEADER:]
 
         return pd.DataFrame.from_dict([self._read_line(line) for line in lines])

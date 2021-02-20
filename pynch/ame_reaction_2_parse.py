@@ -4,9 +4,9 @@ from pynch.ame_reaction_2_file import AMEReactionFile_2
 
 
 class AMEReactionParser_2(AMEReactionFile_2):
-    """ Parse the second AME reaction file
+    """Parse the second AME reaction file
 
-    fjkdslfjskal
+    The format is known but I don't think python can easily parse it.
     """
 
     def __init__(self, filename: str, year: int):
@@ -56,6 +56,7 @@ class AMEReactionParser_2(AMEReactionFile_2):
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 
+        # Remove the header lines
         lines = lines[self.AME_HEADER:]
 
         return pd.DataFrame.from_dict([self._read_line(line) for line in lines])
