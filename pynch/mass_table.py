@@ -7,13 +7,13 @@ from pynch.ame_reaction_2_parse import AMEReactionParser_2
 
 
 class MassTable:
-    """fjdklsafjsk
+    """Storage class for all of the mass data
 
-    kdfjsdlakfjdklf
+    Internally there are separate dataframes for the NUBASE and AME data
     """
 
     def __init__(self, year: int):
-        self.years = [2003, 2012, 2016]
+        self.existing_years = [2003, 2012, 2016]
         self.year = year
         self.data_path = pathlib.Path(__file__) / ".." / ".." / "data"
         self._set_datafiles()
@@ -22,11 +22,11 @@ class MassTable:
 
     def _set_datafiles(self):
         """
-        fsdfa
+        Point the appropriate variables at the required data files for the table year
         """
-        if self.year not in self.years:
-            print(f"WARNING: {self.year} not a valid table year, using {self.years[-1]}")
-            self.year = self.years[-1]
+        if self.year not in self.existing_years:
+            print(f"WARNING: {self.year} not a valid table year, using {self.existing_years[-1]}")
+            self.year = self.existing_years[-1]
 
         data_dir = self.data_path / pathlib.Path(str(self.year))
         data_dir = data_dir.resolve()
@@ -49,7 +49,7 @@ class MassTable:
 
     def _parse_datafiles(self):
         """
-        fdafs
+        Read the data from each file into it's own dataframe
         """
         self.nubase_df = NubaseParser(self.nubase_file, self.year).read_file()
         self.ame_mass_df = AMEMassParser(self.ame_mass_file, self.year).read_file()
@@ -58,7 +58,7 @@ class MassTable:
 
     def merge_ame_data(self):
         """
-        fdsaf
+        The AME data comes in 3 files, merge them into one dataframe
         """
         df = self.ame_mass_df.merge(self.ame_reaction_1_df, on=['A', 'Z', 'N', 'TableYear'])
         self.ame_df = df.merge(self.ame_reaction_2_df, on=['A', 'Z', 'N', 'TableYear'])
