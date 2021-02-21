@@ -16,7 +16,7 @@ class NubaseParser(NubaseFile):
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
-    def _read_halflife(self, line: str) -> float:
+    def _read_halflife_value(self, line: str) -> float:
         """"""
         data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data)
@@ -27,6 +27,40 @@ class NubaseParser(NubaseFile):
         data = line[self.START_HALFLIFEERROR: self.END_HALFLIFEERROR].strip()
         number = re.sub(r"[<>?~a-z]", "", data)
         return float(number) if number else None
+
+    def _read_all_halflife_data(self, line: str) -> None:
+        """"""
+        data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
+        number = re.sub(r"[<>?~]", "", data) if data != "stbl" else "-1.0"
+
+        if number == "-1.0":
+            return 99.99, "Zy", 0.0
+
+        return (
+            float(number) if number else None,
+            self._read_substring(line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT),
+            self._read_halflife_error(line)
+            )
+
+    def _read_decay_string(self, line: str) -> str:
+        """"""
+        decay_string = (
+            self._read_substring(line, self.START_DECAYSTRING_03, len(line))
+            if self.year == 2003
+            else self._read_substring(line, self.START_DECAYSTRING, len(line))
+        )
+
+        # Get the first value in the ';' separated list
+        # Get the initial part of the first value
+        filtered = re.split('=| |~|<|>', decay_string.split(';')[0])[0]
+
+        # Tidy up 'random' strings into standard ones
+        if filtered == "e+":
+            filtered = "B+"
+        elif filtered == "IS":
+            filtered = "stable"
+
+        return filtered
 
     def _read_line(self, line: str) -> dict:
         """
@@ -58,22 +92,16 @@ class NubaseParser(NubaseFile):
         # data["LevelEnergyError"] = self._read_as_float(
         #     line, self.START_DISOMER, self.END_DISOMER
         # )
-        data["HalfLifeValue"] = self._read_halflife(line)
-        data["HalfLifeUnit"] = self._read_substring(
-            line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT
-        )
-        data["HalfLifeError"] = self._read_halflife_error(line)
+
+        data["HalfLifeValue"], data["HalfLifeUnit"], data["HalfLifeError"] = self._read_all_halflife_data(line)
+
         data["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
         data["DiscoveryYear"] = (
             self._read_as_int(line, self.START_YEAR, self.END_YEAR)
             if self.year != 2003
             else 1900
         )
-        data["Decay"] = (
-            self._read_substring(line, self.START_DECAYSTRING_03, len(line))
-            if self.year == 2003
-            else self._read_substring(line, self.START_DECAYSTRING, len(line))
-        )
+        data["Decay"] = self._read_decay_string(line)
 
         return data
 
@@ -82,8 +110,7 @@ class NubaseParser(NubaseFile):
         Some lines have 'random' strings, ignore them
         """
         return (
-            line.find("stbl") == -1
-            and line.find("p-unst") == -1
+            line.find("p-unst") == -1
             and line.find("mix") == -1
             and line.find("non-exist") == -1
         )
