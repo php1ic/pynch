@@ -18,7 +18,7 @@ class MassTable:
         self.data_path = pathlib.Path(__file__) / ".." / ".." / "data"
         self._set_datafiles()
         self._parse_datafiles()
-        self.merge_ame_data()
+        self._merge_ame_data()
 
     def _set_datafiles(self):
         """
@@ -56,7 +56,7 @@ class MassTable:
         self.ame_reaction_1_df = AMEReactionParser_1(self.ame_reaction_1_file, self.year).read_file()
         self.ame_reaction_2_df = AMEReactionParser_2(self.ame_reaction_2_file, self.year).read_file()
 
-    def merge_ame_data(self):
+    def _merge_ame_data(self):
         """
         The AME data comes in 3 files, merge them into one dataframe
         """
