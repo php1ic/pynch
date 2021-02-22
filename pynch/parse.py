@@ -1,3 +1,6 @@
+import typing
+
+
 class Parse():
     """Common functions for parsing data
 
@@ -23,23 +26,23 @@ class Parse():
             110: "Ds", 111: "Rg", 112: "Cn", 113: "Ed", 114: "Fl", 115: "Ef", 116: "Lv", 117: "Eh", 118: "Ei"
         }
 
-    def _read_as_int(self, line: str, start: int, end: int) -> int:
+    def _read_as_int(self, line: str, start: int, end: int, default: int = None) -> typing.Union[int, None]:
         """
         Wrapper to return the slice if a string as an int
         """
         data = line[start:end].strip()
-        return int(data) if data else None
+        return int(data) if data else default
 
-    def _read_as_float(self, line: str, start: int, end: int) -> float:
+    def _read_as_float(self, line: str, start: int, end: int, default: float = None) -> typing.Union[float, None]:
         """
         Wrapper to return the slice if a string as an float
         """
         data = line[start:end].strip()
-        return float(data) if data and data != "*" else None
+        return float(data) if data and data != "*" else default
 
-    def _read_substring(self, line: str, start: int, end: int) -> str:
+    def _read_substring(self, line: str, start: int, end: int, default: str = None) -> typing.Union[str, None]:
         """
         Wrapper to return the slice if a string
         """
         data = line[start:end].strip()
-        return data if data else None
+        return data if data else default

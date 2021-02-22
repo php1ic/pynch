@@ -97,7 +97,7 @@ class NubaseParser(NubaseFile):
 
         data["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
         data["DiscoveryYear"] = (
-            self._read_as_int(line, self.START_YEAR, self.END_YEAR)
+            self._read_as_int(line, self.START_YEAR, self.END_YEAR, default=1900)
             if self.year != 2003
             else 1900
         )
