@@ -20,6 +20,7 @@ class MassTable:
         self.existing_years = [2003, 2012, 2016]
         self.nubase = pd.concat([self._parse_nubase_data(y) for y in self.existing_years], ignore_index=True)
         self.ame = pd.concat([self._parse_ame_data(y) for y in self.existing_years], ignore_index=True)
+        self.full_data = self._combine_all_data()
         self._do_indexing()
 
     def _get_nubase_datafile(self, year: int) -> str:
@@ -91,6 +92,13 @@ class MassTable:
         temp_df = ame_mass_df.merge(AMEReactionParser_1(ame_reaction_1, year).read_file(), on=common_columns)
         return temp_df.merge(AMEReactionParser_2(ame_reaction_2, year).read_file(), on=common_columns)
 
+    def _combine_all_data(self) -> pd.DataFrame:
+        """
+        Combine all NUBASE and AME data into a single pandas DataFrame
+        """
+        common_columns = ['A', 'Z', 'N', 'TableYear', 'Symbol']
+        return self.nubase.merge(self.ame, on=common_columns)
+
     def _do_indexing(self) -> None:
         """
         Set the index of the dataframe to the table year. This is done in place so nothing is returned.
@@ -101,3 +109,4 @@ class MassTable:
         """
         self.nubase.set_index("TableYear", inplace=True)
         self.ame.set_index("TableYear", inplace=True)
+        self.full_data.set_index("TableYear", inplace=True)
