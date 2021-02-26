@@ -1,58 +1,46 @@
 from pynch.mass_table import MassTable
 
 
-def test_set_datafiles():
-    # Default
-    default = MassTable(2000)
-    data_path = default.data_path / str(default.years[-1])
-    nubase = data_path / "nubase2016.txt"
-    ame = data_path / "mass16.txt"
-    ame_r1 = data_path / "rct1-16.txt"
-    ame_r2 = data_path / "rct2-16.txt"
+def test_get_nubase_datafile():
+    mt = MassTable()
 
-    assert default.nubase_file == nubase.resolve()
-    assert default.ame_mass_file == ame.resolve()
-    assert default.ame_reaction_1_file == ame_r1.resolve()
-    assert default.ame_reaction_2_file == ame_r2.resolve()
+    year = 2003
+    assert mt._get_nubase_datafile(year) == mt.data_path.resolve() / str(year) / "nubtab03.asc"
+    year = 2012
+    assert mt._get_nubase_datafile(year) == mt.data_path.resolve() / str(year) / "nubtab12.asc"
+    year = 2016
+    assert mt._get_nubase_datafile(year) == mt.data_path.resolve() / str(year) / "nubase2016.txt"
 
-    # 2003
-    the_year = 2003
-    mt = MassTable(the_year)
-    data_path = mt.data_path / str(the_year)
-    nubase = data_path / "nubtab03.asc"
-    ame = data_path / "mass.mas03"
-    ame_r1 = data_path / "rct1.mas03"
-    ame_r2 = data_path / "rct2.mas03"
 
-    assert mt.nubase_file == nubase.resolve()
-    assert mt.ame_mass_file == ame.resolve()
-    assert mt.ame_reaction_1_file == ame_r1.resolve()
-    assert mt.ame_reaction_2_file == ame_r2.resolve()
+def test_get_ame_datafiles():
+    mt = MassTable()
 
-    # 2012
-    the_year = 2012
-    mt = MassTable(the_year)
-    data_path = mt.data_path / str(the_year)
-    nubase = data_path / "nubtab12.asc"
-    ame = data_path / "mass.mas12"
-    ame_r1 = data_path / "rct1.mas12"
-    ame_r2 = data_path / "rct2.mas12"
+    year = 2003
+    data_path = mt.data_path.resolve() / str(year)
+    mass, reaction01, reaction02 = mt._get_ame_datafiles(2003)
+    assert mass == data_path / "mass.mas03"
+    assert reaction01 == data_path / "rct1.mas03"
+    assert reaction02 == data_path / "rct2.mas03"
 
-    assert mt.nubase_file == nubase.resolve()
-    assert mt.ame_mass_file == ame.resolve()
-    assert mt.ame_reaction_1_file == ame_r1.resolve()
-    assert mt.ame_reaction_2_file == ame_r2.resolve()
+    year = 2012
+    data_path = mt.data_path.resolve() / str(year)
+    mass, reaction01, reaction02 = mt._get_ame_datafiles(2012)
+    assert mass == data_path / "mass.mas12"
+    assert reaction01 == data_path / "rct1.mas12"
+    assert reaction02 == data_path / "rct2.mas12"
 
-    # 2016
-    the_year = 2016
-    mt = MassTable(the_year)
-    data_path = mt.data_path / str(the_year)
-    nubase = data_path / "nubase2016.txt"
-    ame = data_path / "mass16.txt"
-    ame_r1 = data_path / "rct1-16.txt"
-    ame_r2 = data_path / "rct2-16.txt"
+    year = 2016
+    data_path = mt.data_path.resolve() / str(year)
+    mass, reaction01, reaction02 = mt._get_ame_datafiles(2016)
+    assert mass == data_path / "mass16.txt"
+    assert reaction01 == data_path / "rct1-16.txt"
+    assert reaction02 == data_path / "rct2-16.txt"
 
-    assert mt.nubase_file == nubase.resolve()
-    assert mt.ame_mass_file == ame.resolve()
-    assert mt.ame_reaction_1_file == ame_r1.resolve()
-    assert mt.ame_reaction_2_file == ame_r2.resolve()
+
+def test_validate_year():
+    mt = MassTable()
+
+    assert mt._validate_year(2003) == 2003
+    assert mt._validate_year(2012) == 2012
+    assert mt._validate_year(2016) == 2016
+    assert mt._validate_year(2000) == mt.existing_years[-1]

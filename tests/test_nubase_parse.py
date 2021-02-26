@@ -3,15 +3,15 @@
 import pynch.nubase_parse as nbp
 
 
-def test_read_halflife():
+def test_read_halflife_value():
     parser = nbp.NubaseParser(".", 2003)
 
     line_01 = "232 0950   232Am   43400#     300#                             1.31   m 0.04                 91           B+=?;A=2#;B+SF=0.069 10"
 
-    assert parser._read_halflife(line_01) == 1.31
+    assert parser._read_halflife_value(line_01) == 1.31
 
     line_02 = "052 0290   52Cu    -2630#     260#                                             3+#           00           p ?"
-    assert parser._read_halflife(line_02) == None
+    assert parser._read_halflife_value(line_02) == None
 
 
 def test_read_halflife_error():
@@ -27,17 +27,15 @@ def test_read_halflife_error():
 def test_readable_line():
     parser = nbp.NubaseParser(".", 2003)
 
-    bad_line01 = "095 0420   95Mo   -87707.5      1.9                          stbl              5/2+          00           IS=15.92 13"
-    bad_line02 = "003 0030   3Li     28670#    2000#                      RN   p-unst                          98           p ?"
-    bad_line03 = "130 0556   130Csx -86873       17        27      15         R=.2~~~.1          fsmix"
-    bad_line04 = "267 1081   267Hsm                      non-exist        EU   200     ms                         95Ho.Atdi A=?;IT ?"
+    bad_line01 = "003 0030   3Li     28670#    2000#                      RN   p-unst                          98           p ?"
+    bad_line02 = "130 0556   130Csx -86873       17        27      15         R=.2~~~.1          fsmix"
+    bad_line03 = "267 1081   267Hsm                      non-exist        EU   200     ms                         95Ho.Atdi A=?;IT ?"
 
     good_line = "072 0360   72Kr   -53941        8                             17.16   s 0.18   0+            95 03Pi03t   B+=100"
 
     assert not parser._readable_line(bad_line01)
     assert not parser._readable_line(bad_line02)
     assert not parser._readable_line(bad_line03)
-    assert not parser._readable_line(bad_line04)
 
     assert parser._readable_line(good_line)
 
@@ -62,7 +60,7 @@ def test_read_line():
     assert d['HalfLifeError'] == 0.7
     assert d['LevelSpin'] == "3/2-"
     assert d['DiscoveryYear'] == 1900
-    assert d['Decay'] == "B+=100"
+    assert d['Decay'] == "B+"
 
     theoretical_gs_line = "110 0530   110I   -60320#     310#                           650     ms 20     1+#           00           B+=83 4;A=17 4;B+p=11 3;B+A=1.1 3"
     d = parser._read_line(theoretical_gs_line)
@@ -78,4 +76,4 @@ def test_read_line():
     assert d['HalfLifeError'] == 20
     assert d['LevelSpin'] == "1+"
     assert d['DiscoveryYear'] == 1900
-    assert d['Decay'] == "B+=83 4;A=17 4;B+p=11 3;B+A=1.1 3"
+    assert d['Decay'] == "B+"
