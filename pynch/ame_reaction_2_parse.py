@@ -30,11 +30,11 @@ class AMEReactionParser_2(AMEReactionFile_2):
         data["N"] = data["A"] - data["Z"]
         data["Symbol"] = self.z_to_symbol[data["Z"]]
 
-        data["OneNeutronDripLine"] = self._read_as_float(line, self.START_SN, self.END_SN)
-        data["OneNeutronDripLineError"] = self._read_as_float(line, self.START_DSN, self.END_DSN)
+        data["OneNeutronSeparationEnergy"] = self._read_as_float(line, self.START_SN, self.END_SN)
+        data["OneNeutronSeparationEnergyError"] = self._read_as_float(line, self.START_DSN, self.END_DSN)
 
-        data["OneProtonDripLine"] = self._read_as_float(line, self.START_SP, self.END_SP)
-        data["OneProtonDripLineError"] = self._read_as_float(line, self.START_DSP, self.END_DSP)
+        data["OneProtonSeparationEnergy"] = self._read_as_float(line, self.START_SP, self.END_SP)
+        data["OneProtonSeparationEnergyError"] = self._read_as_float(line, self.START_DSP, self.END_DSP)
 
         data["QFourBeta"] = self._read_as_float(line, self.START_Q4B, self.END_Q4B)
         data["QFourBetaError"] = self._read_as_float(line, self.START_DQ4B, self.END_DQ4B)

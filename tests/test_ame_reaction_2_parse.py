@@ -11,10 +11,10 @@ def test_read_line():
     assert d['A'] == 204
     assert d['Z'] == 81
     assert d['N'] == 123
-    assert d['OneNeutronDripLine'] == 6656.10
-    assert d['OneNeutronDripLineError'] == 0.29
-    assert d['OneProtonDripLine'] == 6365.82
-    assert d['OneProtonDripLineError'] == 1.25
+    assert d['OneNeutronSeparationEnergy'] == 6656.10
+    assert d['OneNeutronSeparationEnergyError'] == 0.29
+    assert d['OneProtonSeparationEnergy'] == 6365.82
+    assert d['OneProtonSeparationEnergyError'] == 1.25
     assert d['QFourBeta'] == -12470.66
     assert d['QFourBetaError'] == 24.01
     assert d['QDeuteronAlpha'] == 13710.69
