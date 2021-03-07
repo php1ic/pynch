@@ -6,12 +6,12 @@ from dash.dependencies import Input, Output
 
 import plotly.express as px
 
-import mass_data
+import pynch.mass_table as mt
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
 server = app.server
 
-df = mass_data.MassData().full_data
+df = mt.MassTable().full_data
 
 table_years = df.index.unique()
 variables = df.columns
@@ -146,6 +146,7 @@ app.layout = dbc.Container(children=[year_and_variable, graphs, a_slider], fluid
 def main():
     """
     """
+
     # df = MassData().full_data
     # print(df)
     # print(df.index.unique())
@@ -153,11 +154,11 @@ def main():
     # print(df.loc['2003', ['A', 'Symbol']])
     # print(df.loc[(df['Z'] == 2) & (df['A'] == 3) & (df['TableYear'] == '2003')])
     # print(df.loc['2003'][['A', 'Z']])
-    df_f = df.loc["2003"][["A", "Z", "N", "NubaseRelativeError"]]
-    df_ff = df_f.loc[(df_f["A"] == 12)]
-    print(df_ff)
-    print(df_ff["Z"].max())
-    print(df_ff["Z"].min())
+    # df_f = df.loc["2003"][["A", "Z", "N", "NubaseRelativeError"]]
+    # df_ff = df_f.loc[(df_f["A"] == 12)]
+    # print(df_ff)
+    # print(df_ff["Z"].max())
+    # print(df_ff["Z"].min())
     # print(df_f.loc[(df_f['A'] == 20)])
     # filtered = df[df["TableYear"] == "2003"]
     # print(filtered)
