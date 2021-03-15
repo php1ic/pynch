@@ -15,7 +15,7 @@ class AMEReactionParser_1(AMEReactionFile_1):
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
-    def _read_line(self, line: str):
+    def _read_line(self, line: str) -> dict:
         """
         Read a line from the file
         """
@@ -50,7 +50,7 @@ class AMEReactionParser_1(AMEReactionFile_1):
 
         return data
 
-    def read_file(self):
+    def read_file(self) -> pd.DataFrame:
         """
         Read the file
         """

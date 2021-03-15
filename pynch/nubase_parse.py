@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+import typing
 
 from pynch.nubase_file import NubaseFile
 
@@ -16,19 +17,19 @@ class NubaseParser(NubaseFile):
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
-    def _read_halflife_value(self, line: str) -> float:
+    def _read_halflife_value(self, line: str) -> typing.Union[float, None]:
         """"""
         data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data)
         return float(number) if number else None
 
-    def _read_halflife_error(self, line: str) -> float:
+    def _read_halflife_error(self, line: str) -> typing.Union[float, None]:
         """"""
         data = line[self.START_HALFLIFEERROR: self.END_HALFLIFEERROR].strip()
         number = re.sub(r"[<>?~a-z]", "", data)
         return float(number) if number else None
 
-    def _read_all_halflife_data(self, line: str) -> None:
+    def _read_all_halflife_data(self, line: str) -> tuple:
         """"""
         data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data) if data != "stbl" else "-1.0"
@@ -115,7 +116,7 @@ class NubaseParser(NubaseFile):
             and line.find("non-exist") == -1
         )
 
-    def read_file(self):
+    def read_file(self) -> pd.DataFrame:
         """
         Read the file
         """
