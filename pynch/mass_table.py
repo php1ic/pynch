@@ -64,7 +64,7 @@ class MassTable:
     def _validate_year(self, year: int) -> None:
         """Point the appropriate variables at the required data files for the table year."""
         if year not in self.existing_years:
-            logging.warn(f"WARNING: {year} not a valid table year, using {self.existing_years[-1]}")
+            logging.warning(f"{year} not a valid table year, using {self.existing_years[-1]}")
             year = self.existing_years[-1]
 
         return year
@@ -89,7 +89,19 @@ class MassTable:
     def _combine_all_data(self) -> pd.DataFrame:
         """Combine all NUBASE and AME data into a single pandas DataFrame."""
         common_columns = ['A', 'Z', 'N', 'TableYear', 'Symbol']
-        return self.nubase.merge(self.ame, on=common_columns)
+        df = self.nubase.merge(self.ame, on=common_columns)
+
+        df["NubaseRelativeError"] = abs(
+            df["NubaseMassExcessError"] / df["NubaseMassExcess"]
+        )
+        df["AMERelativeError"] = abs(df["AMEMassExcessError"] / df["AMEMassExcess"])
+
+        # 12C has a 0.0 +/ 0.0 mass excess by definition so calculating relative error -> NaN
+        # Set the value to 0.0 as that's what it is
+        df.loc[(df.Symbol == "C") & (df.A == 12), "NubaseRelativeError"] = 0.0
+        df.loc[(df.Symbol == "C") & (df.A == 12), "AMERelativeError"] = 0.0
+
+        return df
 
     def _do_indexing(self) -> None:
         """
