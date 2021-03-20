@@ -1,4 +1,6 @@
 """Extract the date from the second reaction file."""
+import logging
+
 import pandas as pd
 
 from pynch.ame_reaction_2_file import AMEReactionFileTwo
@@ -15,7 +17,7 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
         super().__init__()
         self.filename = filename
         self.year = year
-        print(f"Reading {self.filename} from {self.year}")
+        logging.info(f"Reading {self.filename} from {self.year}")
 
     def _read_line(self, line: str) -> dict:
         """Read a line from the file."""

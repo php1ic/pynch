@@ -1,4 +1,5 @@
 """Functionality to parse all data file into a single object."""
+import logging
 import pathlib
 import typing
 
@@ -63,7 +64,7 @@ class MassTable:
     def _validate_year(self, year: int) -> None:
         """Point the appropriate variables at the required data files for the table year."""
         if year not in self.existing_years:
-            print(f"WARNING: {year} not a valid table year, using {self.existing_years[-1]}")
+            logging.warn(f"WARNING: {year} not a valid table year, using {self.existing_years[-1]}")
             year = self.existing_years[-1]
 
         return year

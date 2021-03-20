@@ -1,4 +1,5 @@
 """Extract the data from the nubse file."""
+import logging
 import re
 import typing
 
@@ -18,7 +19,7 @@ class NubaseParser(NubaseFile):
         super().__init__()
         self.filename = filename
         self.year = year
-        print(f"Reading {self.filename} from {self.year}")
+        logging.info(f"Reading {self.filename} from {self.year}")
 
     def _read_halflife_value(self, line: str) -> typing.Union[float, None]:
         """Slice the string to get the numerical value or None if it's empty."""
