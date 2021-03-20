@@ -1,24 +1,24 @@
+"""Extract the data from the AME mass file."""
 import pandas as pd
 
 from pynch.ame_mass_file import AMEMassFile
 
 
 class AMEMassParser(AMEMassFile):
-    """Parse the AME mass file
+    """Parse the AME mass file.
 
     The format is known but I don't think python can easily parse it.
     """
 
     def __init__(self, filename: str, year: int):
+        """Set the file to read and table year."""
         super().__init__()
         self.filename = filename
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
     def _read_line(self, line: str) -> dict:
-        """
-        Read a line from the file
-        """
+        """Read a line from the file."""
         if line.find("#") != -1:
             line = line.replace("#", " ")
 
@@ -43,9 +43,7 @@ class AMEMassParser(AMEMassFile):
         return data
 
     def read_file(self) -> pd.DataFrame:
-        """
-        Read the file
-        """
+        """Read the file."""
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 

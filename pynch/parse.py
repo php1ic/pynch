@@ -1,14 +1,16 @@
+"""Base class with common parsing functionality."""
 import typing
 
 
 class Parse():
-    """Common functions for parsing data
+    """Common functions for parsing data.
 
     We read multiple files so put the functions used when parsing
     all of them into this module that we can inherit from.
     """
 
     def __init__(self):
+        """Construct the symbol to Z map and set the AME header length."""
         super(Parse, self).__init__()
         self.AME_HEADER = 39
         self.z_to_symbol = {
@@ -27,22 +29,16 @@ class Parse():
         }
 
     def _read_as_int(self, line: str, start: int, end: int, default: int = None) -> typing.Union[int, None]:
-        """
-        Wrapper to return the slice if a string as an int
-        """
+        """Slice the string and return as an int, or None if the slice is empty."""
         data = line[start:end].strip()
         return int(data) if data else default
 
     def _read_as_float(self, line: str, start: int, end: int, default: float = None) -> typing.Union[float, None]:
-        """
-        Wrapper to return the slice if a string as an float
-        """
+        """Slice the string and return as an float, or None if the slice is empty."""
         data = line[start:end].strip()
         return float(data) if data and data != "*" else default
 
     def _read_substring(self, line: str, start: int, end: int, default: str = None) -> typing.Union[str, None]:
-        """
-        Wrapper to return the slice if a string
-        """
+        """Slice the string or return None if the slice is empty."""
         data = line[start:end].strip()
         return data if data else default

@@ -1,13 +1,12 @@
+"""Storage for variable line positions."""
 from pynch.parse import Parse
 
 
 class AMEMassFile(Parse):
-    """Easy access to where the variables are in the AME mass file
-
-    The AME mass file
-    """
+    """Easy access to where the variables are in the AME mass file."""
 
     def __init__(self):
+        """Setup up the values."""
         super(AMEMassFile, self).__init__()
         self.START_A = 16
         self.END_A = 19

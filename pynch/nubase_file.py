@@ -1,8 +1,9 @@
+"""Storage for the variable line positions."""
 from pynch.parse import Parse
 
 
 class NubaseFile(Parse):
-    """Easy access to where variables are in the NUBASE file
+    """Easy access to where variables are in the NUBASE file.
 
     The NUBASE data file is formatted by location in the line, values exist
     between 2 specific columns in the line. Store the start and end locations
@@ -11,6 +12,7 @@ class NubaseFile(Parse):
     """
 
     def __init__(self):
+        """Setup the values that locate the variable."""
         super(NubaseFile, self).__init__()
         self.START_A = 0
         self.END_A = 3

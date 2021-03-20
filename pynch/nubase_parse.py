@@ -1,36 +1,39 @@
-import pandas as pd
+"""Extract the data from the nubse file."""
 import re
 import typing
+
+import pandas as pd
 
 from pynch.nubase_file import NubaseFile
 
 
 class NubaseParser(NubaseFile):
-    """Parse the NUBASE data file
+    """Parse the NUBASE data file.
 
     A collection of functions to parse the weird format of the NUBASE file.
     """
 
     def __init__(self, filename: str, year: int):
+        """Set the file to read and the table year."""
         super().__init__()
         self.filename = filename
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
     def _read_halflife_value(self, line: str) -> typing.Union[float, None]:
-        """"""
+        """Slice the string to get the numerical value or None if it's empty."""
         data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data)
         return float(number) if number else None
 
     def _read_halflife_error(self, line: str) -> typing.Union[float, None]:
-        """"""
+        """Slice the string to get the numerical value or None if it's empty."""
         data = line[self.START_HALFLIFEERROR: self.END_HALFLIFEERROR].strip()
         number = re.sub(r"[<>?~a-z]", "", data)
         return float(number) if number else None
 
     def _read_all_halflife_data(self, line: str) -> tuple:
-        """"""
+        """Extract all the data related to the halflife."""
         data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data) if data != "stbl" else "-1.0"
 
@@ -41,10 +44,10 @@ class NubaseParser(NubaseFile):
             float(number) if number else None,
             self._read_substring(line, self.START_HALFLIFEUNIT, self.END_HALFLIFEUNIT),
             self._read_halflife_error(line)
-            )
+        )
 
     def _read_decay_string(self, line: str) -> str:
-        """"""
+        """Extract the decay mode and do some book keeping for consistency."""
         decay_string = (
             self._read_substring(line, self.START_DECAYSTRING_03, len(line))
             if self.year == 2003
@@ -64,9 +67,7 @@ class NubaseParser(NubaseFile):
         return filtered
 
     def _read_line(self, line: str) -> dict:
-        """
-        Read a line of the file
-        """
+        """Read a line of the file."""
         # Ignore isomers for the moment
         if self._read_as_int(line, self.START_STATE, self.END_STATE) > 0:
             return dict()
@@ -107,19 +108,11 @@ class NubaseParser(NubaseFile):
         return data
 
     def _readable_line(self, line: str) -> bool:
-        """
-        Some lines have 'random' strings, ignore them
-        """
-        return (
-            line.find("p-unst") == -1
-            and line.find("mix") == -1
-            and line.find("non-exist") == -1
-        )
+        """Some lines have 'random' strings, ignore them."""
+        return (line.find("p-unst") == -1 and line.find("mix") == -1 and line.find("non-exist") == -1)
 
     def read_file(self) -> pd.DataFrame:
-        """
-        Read the file
-        """
+        """Read the file."""
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 

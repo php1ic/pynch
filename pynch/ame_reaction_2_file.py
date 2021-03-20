@@ -1,14 +1,13 @@
+"""Storage for the variable line positions."""
 from pynch.parse import Parse
 
 
-class AMEReactionFile_2(Parse):
-    """Easy access to where the variables are in the second AME reaction file
-
-    The second AME reaction file
-    """
+class AMEReactionFileTwo(Parse):
+    """Easy access to where the variables are in the second AME reaction file."""
 
     def __init__(self):
-        super(AMEReactionFile_2, self).__init__()
+        """Setup the values that locate the variables."""
+        super(AMEReactionFileTwo, self).__init__()
         self.START_R2_A = 1
         self.END_R2_A = 4
         self.START_R2_Z = 8

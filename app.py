@@ -1,8 +1,12 @@
+"""dsfds."""
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
+
+import dash_bootstrap_components as dbc
+
+import dash_core_components as dcc
+
+import dash_html_components as html
 
 import plotly.express as px
 
@@ -34,7 +38,7 @@ variables = df.columns
     ],
 )
 def update_graph(y_var, x_value, year):
-
+    """The actions to do when the selected data is changed."""
     df_f = df.loc[table_years[year]][["Symbol", "Decay", "A", "Z", "N", y_var]]
     df_ff = df_f.loc[(df_f["A"] == x_value)]
 
@@ -75,19 +79,19 @@ def update_graph(y_var, x_value, year):
 
     title = html.H2(f"A = {x_value}")
 
-    minA = df_f["A"].min()
-    maxA = df_f["A"].max()
+    min_a = df_f["A"].min()
+    max_a = df_f["A"].max()
 
-    marksA = {i: f"{i}" for i in range(20, maxA, 20)}
+    marks_a = {i: f"{i}" for i in range(20, max_a, 20)}
 
     return (
         title,
         a_fig,
         z_fig.update_traces(mode="lines+markers"),
         n_fig.update_traces(mode="lines+markers"),
-        minA,
-        maxA,
-        marksA,
+        min_a,
+        max_a,
+        marks_a,
     )
 
 
@@ -144,8 +148,7 @@ app.layout = dbc.Container(children=[year_and_variable, graphs, a_slider], fluid
 
 
 def main():
-    """
-    """
+    """For testing."""
 
     # df = MassData().full_data
     # print(df)

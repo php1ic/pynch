@@ -1,24 +1,24 @@
+"""Extract the data from the first reaction file."""
 import pandas as pd
 
-from pynch.ame_reaction_1_file import AMEReactionFile_1
+from pynch.ame_reaction_1_file import AMEReactionFileOne
 
 
-class AMEReactionParser_1(AMEReactionFile_1):
-    """ Parse the first AME reaction file
+class AMEReactionParserOne(AMEReactionFileOne):
+    """Parse the first AME reaction file.
 
     The format is known but I don't think python can easily parse it.
     """
 
     def __init__(self, filename: str, year: int):
+        """Set the file to read and table year."""
         super().__init__()
         self.filename = filename
         self.year = year
         print(f"Reading {self.filename} from {self.year}")
 
     def _read_line(self, line: str) -> dict:
-        """
-        Read a line from the file
-        """
+        """Read a line from the file."""
         # Don't use a '#' as an experimental marker in this file
         # but still need to remove it
         if line.find("#") != -1:
@@ -51,9 +51,7 @@ class AMEReactionParser_1(AMEReactionFile_1):
         return data
 
     def read_file(self) -> pd.DataFrame:
-        """
-        Read the file
-        """
+        """Read the file."""
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 
