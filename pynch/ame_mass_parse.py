@@ -37,7 +37,9 @@ class AMEMassParser(AMEMassFile):
         data["BindingEnergyPerAError"] = self._read_as_float(line, self.START_DBE_PER_A, self.END_DBE_PER_A)
 
         data["BetaDecayEnergy"] = self._read_as_float(line, self.START_BETA_DECAY_ENERGY, self.END_BETA_DECAY_ENERGY)
-        data["BetaDecayEnergyError"] = self._read_as_float(line, self.START_DBETA_DECAY_ENERGY, self.END_DBETA_DECAY_ENERGY)
+        data["BetaDecayEnergyError"] = self._read_as_float(line,
+                                                           self.START_DBETA_DECAY_ENERGY,
+                                                           self.END_DBETA_DECAY_ENERGY)
 
         data["AtomicMass"] = self._read_as_float(line, self.START_MICRO_U, self.END_MICRO_U)
         data["AtomicMassError"] = self._read_as_float(line, self.START_MICRO_DU, self.END_MICRO_DU)
