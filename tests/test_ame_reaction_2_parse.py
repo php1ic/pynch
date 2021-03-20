@@ -1,8 +1,8 @@
-from pynch.ame_reaction_2_parse import AMEReactionParser_2
+from pynch.ame_reaction_2_parse import AMEReactionParserTwo
 
 
 def test_read_line():
-    parser = AMEReactionParser_2(".", 2003)
+    parser = AMEReactionParserTwo(".", 2003)
 
     line = " 204 Tl  81    6656.10    0.29   6365.82    1.25 -12470.66   24.01  13710.69    1.15   8181.34    1.16   7701.54    3.34"
 
