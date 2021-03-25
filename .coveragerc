@@ -1,0 +1,12 @@
+[run]
+source = ./pynch
+omit =
+     # Ignore test files
+     tests/*
+     # Should this be tested? guessing not
+     pynch/__init__.py
+     # These files are basically lists so no need to test
+     pynch/*_file.py
+
+[html]
+directory = coverage_html_report

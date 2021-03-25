@@ -1,0 +1,8 @@
+[flake8]
+ignore =
+    # I'm not always in an imperative mood
+    D401
+exclude = tests,.git,__pycache__
+max-line-length = 120
+count = True
+statistics = True

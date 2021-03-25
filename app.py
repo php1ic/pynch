@@ -1,17 +1,21 @@
+"""dsfds."""
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
+
+import dash_bootstrap_components as dbc
+
+import dash_core_components as dcc
+
+import dash_html_components as html
 
 import plotly.express as px
 
-import mass_data
+import pynch.mass_table as mt
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
 server = app.server
 
-df = mass_data.MassData().full_data
+df = mt.MassTable().full_data
 
 table_years = df.index.unique()
 variables = df.columns
@@ -34,7 +38,7 @@ variables = df.columns
     ],
 )
 def update_graph(y_var, x_value, year):
-
+    """The actions to do when the selected data is changed."""
     df_f = df.loc[table_years[year]][["Symbol", "Decay", "A", "Z", "N", y_var]]
     df_ff = df_f.loc[(df_f["A"] == x_value)]
 
@@ -75,19 +79,19 @@ def update_graph(y_var, x_value, year):
 
     title = html.H2(f"A = {x_value}")
 
-    minA = df_f["A"].min()
-    maxA = df_f["A"].max()
+    min_a = df_f["A"].min()
+    max_a = df_f["A"].max()
 
-    marksA = {i: f"{i}" for i in range(20, maxA, 20)}
+    marks_a = {i: f"{i}" for i in range(20, max_a, 20)}
 
     return (
         title,
         a_fig,
         z_fig.update_traces(mode="lines+markers"),
         n_fig.update_traces(mode="lines+markers"),
-        minA,
-        maxA,
-        marksA,
+        min_a,
+        max_a,
+        marks_a,
     )
 
 
@@ -144,8 +148,8 @@ app.layout = dbc.Container(children=[year_and_variable, graphs, a_slider], fluid
 
 
 def main():
-    """
-    """
+    """For testing."""
+
     # df = MassData().full_data
     # print(df)
     # print(df.index.unique())
@@ -153,11 +157,11 @@ def main():
     # print(df.loc['2003', ['A', 'Symbol']])
     # print(df.loc[(df['Z'] == 2) & (df['A'] == 3) & (df['TableYear'] == '2003')])
     # print(df.loc['2003'][['A', 'Z']])
-    df_f = df.loc["2003"][["A", "Z", "N", "NubaseRelativeError"]]
-    df_ff = df_f.loc[(df_f["A"] == 12)]
-    print(df_ff)
-    print(df_ff["Z"].max())
-    print(df_ff["Z"].min())
+    # df_f = df.loc["2003"][["A", "Z", "N", "NubaseRelativeError"]]
+    # df_ff = df_f.loc[(df_f["A"] == 12)]
+    # print(df_ff)
+    # print(df_ff["Z"].max())
+    # print(df_ff["Z"].min())
     # print(df_f.loc[(df_f['A'] == 20)])
     # filtered = df[df["TableYear"] == "2003"]
     # print(filtered)
