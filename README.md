@@ -1,5 +1,7 @@
 # PyNCH - The Python Nuclear CHart
 
+[![Unit Tests](https://github.com/php1ic/pynch/actions/workflows/ci.yml/badge.svg)](https://github.com/php1ic/pynch/actions/workflows/ci.yml)
+
 ## Introduction
 
 The nuclear mass tables produced by [NUBASE](http://amdc.in2p3.fr/web/nubase_en.html) and [AME](https://www-nds.iaea.org/amdc/) are parsed into pandas dataframes.
