@@ -50,9 +50,9 @@ class NubaseFile(Parse):
             # END_DECAYSTRING = EOL;
         else:
             self.START_A = 0
-            self.END_A = 2
+            self.END_A = 3
             self.START_Z = 4
-            self.END_Z = 6
+            self.END_Z = 7
             self.START_STATE = 7
             self.END_STATE = 8
             self.START_ME = 18
@@ -66,7 +66,7 @@ class NubaseFile(Parse):
             self.START_HALFLIFEVALUE = 69
             self.END_HALFLIFEVALUE = 77
             self.START_HALFLIFEUNIT = 78
-            self.END_HALFLIFEUNIT = 79
+            self.END_HALFLIFEUNIT = 80
             self.START_HALFLIFEERROR = 81
             self.END_HALFLIFEERROR = 87
             self.START_SPIN = 88
@@ -74,7 +74,7 @@ class NubaseFile(Parse):
             self.START_ENSDF = 102
             self.END_ENSDF = 103
             self.START_YEAR = 114
-            self.END_YEAR = 117
+            self.END_YEAR = 118
             # Let the 03 position be the odd-one-out and thus
             # have the slightly awkward name
             self.START_DECAYSTRING = 119

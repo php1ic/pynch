@@ -98,7 +98,12 @@ class NubaseParser(NubaseFile):
 
         data["HalfLifeValue"], data["HalfLifeUnit"], data["HalfLifeError"] = self._read_all_halflife_data(line)
 
+        # 2020 brought in '*' for directly measured. Just remove it for the moment
+        # TODO parse the spin parity with the new characters
         data["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
+        if data["LevelSpin"] and data["LevelSpin"].find("*") != -1:
+            data["LevelSpin"] = data["LevelSpin"].replace("*", "")
+
         data["DiscoveryYear"] = (
             self._read_as_int(line, self.START_YEAR, self.END_YEAR, default=1900)
             if self.year != 2003

@@ -11,7 +11,7 @@ def test_read_halflife_value():
     assert parser._read_halflife_value(line_01) == 1.31
 
     line_02 = "052 0290   52Cu    -2630#     260#                                             3+#           00           p ?"
-    assert parser._read_halflife_value(line_02) == None
+    assert not parser._read_halflife_value(line_02)
 
 
 def test_read_halflife_error():
@@ -21,7 +21,7 @@ def test_read_halflife_error():
     assert parser._read_halflife_error(line_01) == 0.03
 
     line_02 = "025 0150   25P     18870#     200#                           <30     ns        1/2+#         00 93Po.Ai   p ?"
-    assert parser._read_halflife_error(line_02) == None
+    assert not parser._read_halflife_error(line_02)
 
 
 def test_readable_line():
@@ -76,4 +76,23 @@ def test_read_line():
     assert d['HalfLifeError'] == 20
     assert d['LevelSpin'] == "1+"
     assert d['DiscoveryYear'] == 1900
+    assert d['Decay'] == "B+"
+
+    # 2020 table has a new format
+    parser = nbp.NubaseParser(".", 2020)
+
+    # Use the same isotope as previously tested
+    gs_line = "057 0290   57Cu   -47309.0        0.5                                 196.4   ms 0.7    3/2-*         98          1976 B+=100"
+    d = parser._read_line(gs_line)
+    assert d['A'] == 57
+    assert d['Z'] == 29
+    assert d['N'] == 28
+    assert d['Experimental'] is True
+    assert d['NubaseMassExcess'] == -47309.0
+    assert d['NubaseMassExcessError'] == 0.5
+    assert d['HalfLifeValue'] == 196.4
+    assert d['HalfLifeUnit'] == "ms"
+    assert d['HalfLifeError'] == 0.7
+    assert d['LevelSpin'] == "3/2-"
+    assert d['DiscoveryYear'] == 1976
     assert d['Decay'] == "B+"
