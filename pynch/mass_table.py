@@ -21,7 +21,7 @@ class MassTable:
         """Do all of the work at construction."""
         # Assume this file is some/path/pynch/pynch/mass_table.py
         self.data_path = pathlib.Path(__file__) / ".." / ".." / "data"
-        self.existing_years = [2003, 2012, 2016]
+        self.existing_years = [2003, 2012, 2016, 2020]
         self.nubase = pd.concat([self._parse_nubase_data(y) for y in self.existing_years], ignore_index=True)
         self.ame = pd.concat([self._parse_ame_data(y) for y in self.existing_years], ignore_index=True)
         self.full_data = self._combine_all_data()
@@ -38,6 +38,8 @@ class MassTable:
             nubase_mass = nubase_mass / "nubtab12.asc"
         elif year == 2016:
             nubase_mass = nubase_mass / "nubase2016.txt"
+        elif year == 2020:
+            nubase_mass = nubase_mass / "nubase_1.mas20"
 
         return nubase_mass
 
@@ -58,6 +60,10 @@ class MassTable:
             ame_mass = data_dir / "mass16.txt"
             ame_reaction_1 = data_dir / "rct1-16.txt"
             ame_reaction_2 = data_dir / "rct2-16.txt"
+        elif year == 2020:
+            ame_mass = data_dir / "mass.mas20"
+            ame_reaction_1 = data_dir / "rct1.mas20"
+            ame_reaction_2 = data_dir / "rct2.mas20"
 
         return ame_mass, ame_reaction_1, ame_reaction_2
 

@@ -16,9 +16,9 @@ class NubaseParser(NubaseFile):
 
     def __init__(self, filename: str, year: int):
         """Set the file to read and the table year."""
-        super().__init__()
         self.filename = filename
         self.year = year
+        super().__init__(self.year)
         logging.info(f"Reading {self.filename} from {self.year}")
 
     def _read_halflife_value(self, line: str) -> typing.Union[float, None]:
@@ -116,6 +116,9 @@ class NubaseParser(NubaseFile):
         """Read the file."""
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
+
+        if self.year == 2020:
+            lines = lines[self.NUBASE_HEADER:]
 
         the_lines = [
             self._read_line(line) for line in lines if self._readable_line(line)
