@@ -1,6 +1,7 @@
 # PyNCH - The Python Nuclear CHart
 
 [![Unit Tests](https://github.com/php1ic/pynch/actions/workflows/ci.yml/badge.svg)](https://github.com/php1ic/pynch/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/php1ic/pynch/branch/master/graph/badge.svg?token=0OW8G0HYVG)](https://codecov.io/gh/php1ic/pynch)
 
 ## Introduction
 
