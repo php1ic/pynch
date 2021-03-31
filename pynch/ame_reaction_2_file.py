@@ -47,10 +47,10 @@ class AMEReactionFileTwo(Parse):
             self.START_DSN = 25
             self.END_DSN = 34
             self.START_SP = 36
-            self.END_SP = 45
+            self.END_SP = 46
             self.START_DSP = 47
-            self.END_DSP = 55
-            self.START_Q4B = 58
+            self.END_DSP = 56
+            self.START_Q4B = 57
             self.END_Q4B = 68
             self.START_DQ4B = 69
             self.END_DQ4B = 78

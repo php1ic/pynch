@@ -47,9 +47,9 @@ class AMEReactionFileOne(Parse):
             self.START_DS2N = 25
             self.END_DS2N = 34
             self.START_S2P = 36
-            self.END_S2P = 45
+            self.END_S2P = 46
             self.START_DS2P = 47
-            self.END_DS2P = 55
+            self.END_DS2P = 56
             self.START_QA = 58
             self.END_QA = 68
             self.START_DQA = 69

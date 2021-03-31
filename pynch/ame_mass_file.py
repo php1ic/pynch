@@ -34,7 +34,7 @@ class AMEMassFile(Parse):
             self.END_A = 19
             self.START_Z = 11
             self.END_Z = 14
-            self.START_ME = 30
+            self.START_ME = 29
             self.END_ME = 41
             self.START_DME = 43
             self.END_DME = 53
@@ -47,6 +47,6 @@ class AMEMassFile(Parse):
             self.START_DBETA_DECAY_ENERGY = 95
             self.END_DBETA_DECAY_ENERGY = 104
             self.START_MICRO_U = 110
-            self.END_MICRO_U = 111
+            self.END_MICRO_U = 120
             self.START_MICRO_DU = 124
             self.END_MICRO_DU = 135
