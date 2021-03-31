@@ -23,8 +23,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pytest
+        python -m pip install pytest coverage
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest
+        coverage run -m pytest -v && coverage xml
+    - name: Upload coverage to Codecov
+      if: ${{ matrix.python-version == '3.9' }}
+      uses: codecov/codecov-actions@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
+        files: ./coverage.xml
