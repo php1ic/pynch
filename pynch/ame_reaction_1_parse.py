@@ -14,9 +14,9 @@ class AMEReactionParserOne(AMEReactionFileOne):
 
     def __init__(self, filename: str, year: int):
         """Set the file to read and table year."""
-        super().__init__()
         self.filename = filename
         self.year = year
+        super().__init__(self.year)
         logging.info(f"Reading {self.filename} from {self.year}")
 
     def _read_line(self, line: str) -> dict:

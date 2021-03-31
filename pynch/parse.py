@@ -13,6 +13,7 @@ class Parse():
         """Construct the symbol to Z map and set the AME header length."""
         super(Parse, self).__init__()
         self.AME_HEADER = 39
+        self.AME_FOOTER = 3645  # Only for the rct2 file of 2020
         self.NUBASE_HEADER = 25  # Only for the 2020 table
         self.z_to_symbol = {
             0: "n", 1: "H", 2: "He", 3: "Li", 4: "Be", 5: "B", 6: "C", 7: "N", 8: "O", 9: "F",

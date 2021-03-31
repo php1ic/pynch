@@ -14,9 +14,9 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
 
     def __init__(self, filename: str, year: int):
         """Set the file to read and table year."""
-        super().__init__()
         self.filename = filename
         self.year = year
+        super().__init__(self.year)
         logging.info(f"Reading {self.filename} from {self.year}")
 
     def _read_line(self, line: str) -> dict:
@@ -57,7 +57,10 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 
-        # Remove the header lines
-        lines = lines[self.AME_HEADER:]
+        # Remove the header lines and the footer for the 2020 table
+        lines = lines[self.AME_HEADER:self.AME_FOOTER]
 
-        return pd.DataFrame.from_dict([self._read_line(line) for line in lines])
+        # The 2020 rct2 file has additional lines feeds not present in any other file
+        the_lines = [line for line in lines if line[:1] != "1"]
+
+        return pd.DataFrame.from_dict([self._read_line(line) for line in the_lines])
