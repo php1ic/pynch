@@ -34,7 +34,7 @@ class AMEReactionFileOne(Parse):
             self.START_DQEP = 95
             self.END_DQEP = 102
             self.START_QBN = 103
-            self.END_QBN = 111
+            self.END_QBN = 112
             self.START_DQBN = 113
             self.END_DQBN = 125
         else:
