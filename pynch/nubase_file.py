@@ -14,7 +14,7 @@ class NubaseFile(Parse):
     def __init__(self, year: int):
         """Setup the values that locate the variable."""
         super(NubaseFile, self).__init__()
-        if year != 2020:
+        if year < 2020:
             self.START_A = 0
             self.END_A = 3
             self.START_Z = 4

@@ -36,7 +36,7 @@ class Parse():
         return int(data) if data else default
 
     def _read_as_float(self, line: str, start: int, end: int, default: float = None) -> typing.Union[float, None]:
-        """Slice the string and return as an float, or None if the slice is empty."""
+        """Slice the string and return as a float, or None if the slice is empty or just a '*' character."""
         data = line[start:end].strip()
         return float(data) if data and data != "*" else default
 
