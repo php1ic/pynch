@@ -2,7 +2,7 @@
 import typing
 
 
-class Parse():
+class Parse:
     """Common functions for parsing data.
 
     We read multiple files so put the functions used when parsing
