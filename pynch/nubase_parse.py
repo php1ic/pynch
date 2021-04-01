@@ -47,6 +47,16 @@ class NubaseParser(NubaseFile):
             self._read_halflife_error(line)
         )
 
+    def _read_spin(self, line: str) -> str:
+        """Extract the spin of the isotope and it's level."""
+        # 2020 brought in '*' for directly measured. Just remove it for the moment
+        # TODO parse the spin parity with the new characters
+        spin = self._read_substring(line, self.START_SPIN, self.END_SPIN)
+        if spin and spin.find('*') != -1:
+            spin = spin.replace('*', '')
+
+        return spin
+
     def _read_decay_string(self, line: str) -> str:
         """Extract the decay mode and do some book keeping for consistency."""
         decay_string = (
@@ -98,11 +108,7 @@ class NubaseParser(NubaseFile):
 
         data["HalfLifeValue"], data["HalfLifeUnit"], data["HalfLifeError"] = self._read_all_halflife_data(line)
 
-        # 2020 brought in '*' for directly measured. Just remove it for the moment
-        # TODO parse the spin parity with the new characters
-        data["LevelSpin"] = self._read_substring(line, self.START_SPIN, self.END_SPIN)
-        if data["LevelSpin"] and data["LevelSpin"].find("*") != -1:
-            data["LevelSpin"] = data["LevelSpin"].replace("*", "")
+        data["LevelSpin"] = self._read_spin(line)
 
         data["DiscoveryYear"] = (
             self._read_as_int(line, self.START_YEAR, self.END_YEAR, default=1900)
