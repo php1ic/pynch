@@ -67,7 +67,7 @@ class MassTable:
 
         return ame_mass, ame_reaction_1, ame_reaction_2
 
-    def _validate_year(self, year: int) -> None:
+    def _validate_year(self, year: int) -> int:
         """Point the appropriate variables at the required data files for the table year."""
         if year not in self.existing_years:
             logging.warning(f"{year} not a valid table year, using {self.existing_years[-1]}")
