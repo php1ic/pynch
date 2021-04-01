@@ -75,8 +75,6 @@ class NubaseFile(Parse):
             self.END_ENSDF = 103
             self.START_YEAR = 114
             self.END_YEAR = 118
-            # Let the 03 position be the odd-one-out and thus
-            # have the slightly awkward name
             self.START_DECAYSTRING = 119
             # The decay string goes to EOL put here commented
             # to show that we haven't just forgotten about it.
