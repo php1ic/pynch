@@ -1,4 +1,18 @@
-**/__pycache__/**
-.venv/**
+# Files and directories created by python
+**/__pycache__/
+**/.pytest_cache
+
+# A catch all for virtual env directories
+.venv*/
+venv*/
+
+# PyCharm settings directory
+.idea/
+
+# Jupyter related files and directories
+*.ipynb
+.ipnb_checkpoints/
+
+# Test coverage related files and directories
 .coverage
 coverage_html_report
