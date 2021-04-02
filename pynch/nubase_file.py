@@ -15,6 +15,8 @@ class NubaseFile(Parse):
         """Setup the values that locate the variable."""
         super(NubaseFile, self).__init__()
         if year < 2020:
+            self.HEADER = 0
+            self.FOOTER = None
             self.START_A = 0
             self.END_A = 3
             self.START_Z = 4
@@ -49,6 +51,8 @@ class NubaseFile(Parse):
             # to show that we haven't just forgotten about it.
             # END_DECAYSTRING = EOL;
         else:
+            self.HEADER = 25
+            self.FOOTER = None
             self.START_A = 0
             self.END_A = 3
             self.START_Z = 4

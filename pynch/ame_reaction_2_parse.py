@@ -58,7 +58,7 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
             lines = [line.rstrip() for line in f]
 
         # Remove the header lines and the footer for the 2020 table
-        lines = lines[self.AME_HEADER:self.AME_FOOTER]
+        lines = lines[self.HEADER:self.FOOTER]
 
         # The 2020 rct2 file has additional lines feeds not present in any other file
         the_lines = [line for line in lines if line[:1] != "1"]

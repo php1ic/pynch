@@ -52,6 +52,6 @@ class AMEMassParser(AMEMassFile):
             lines = [line.rstrip() for line in f]
 
         # Remove the header lines
-        lines = lines[self.AME_HEADER:]
+        lines = lines[self.HEADER:self.FOOTER]
 
         return pd.DataFrame.from_dict([self._read_line(line) for line in lines])

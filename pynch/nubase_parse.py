@@ -128,8 +128,7 @@ class NubaseParser(NubaseFile):
         with open(self.filename, "r") as f:
             lines = [line.rstrip() for line in f]
 
-        if self.year == 2020:
-            lines = lines[self.NUBASE_HEADER:]
+        lines = lines[self.HEADER:self.FOOTER]
 
         the_lines = [
             self._read_line(line) for line in lines if self._readable_line(line)

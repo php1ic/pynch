@@ -9,6 +9,8 @@ class AMEMassFile(Parse):
         """Setup up the values."""
         super(AMEMassFile, self).__init__()
         if year < 2020:
+            self.HEADER = 39
+            self.FOOTER = None
             self.START_A = 16
             self.END_A = 19
             self.START_Z = 11
@@ -30,12 +32,14 @@ class AMEMassFile(Parse):
             self.START_MICRO_DU = 113
             self.END_MICRO_DU = 125
         else:
+            self.HEADER = 36
+            self.FOOTER = None
             self.START_A = 16
             self.END_A = 19
             self.START_Z = 11
             self.END_Z = 14
             self.START_ME = 29
-            self.END_ME = 41
+            self.END_ME = 42
             self.START_DME = 43
             self.END_DME = 53
             self.START_BE_PER_A = 56

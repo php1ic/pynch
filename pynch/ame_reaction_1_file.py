@@ -9,6 +9,8 @@ class AMEReactionFileOne(Parse):
         """Setup the values that locate the variable."""
         super(AMEReactionFileOne, self).__init__()
         if year < 2020:
+            self.HEADER = 39
+            self.FOOTER = None
             self.START_R1_A = 1
             self.END_R1_A = 4
             self.START_R1_Z = 8
@@ -38,6 +40,8 @@ class AMEReactionFileOne(Parse):
             self.START_DQBN = 113
             self.END_DQBN = 125
         else:
+            self.HEADER = 35
+            self.FOOTER = None
             self.START_R1_A = 1
             self.END_R1_A = 4
             self.START_R1_Z = 8
