@@ -107,6 +107,9 @@ class MassTable:
         df.loc[(df.Symbol == "C") & (df.A == 12), "NubaseRelativeError"] = 0.0
         df.loc[(df.Symbol == "C") & (df.A == 12), "AMERelativeError"] = 0.0
 
+        # 198Au has a typo in it's decay mode in the 2012 table. It is down as '-'
+        df.loc[(df.A == 198) & (df.Z == 79) & (df.TableYear == 2012), 'Decay'] = "B-"
+
         return df
 
     def _do_indexing(self) -> None:
