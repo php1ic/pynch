@@ -47,7 +47,7 @@ class NubaseParser(NubaseFile):
             self._read_halflife_error(line)
         )
 
-    def _read_spin(self, line: str) -> str:
+    def _read_spin(self, line: str) -> typing.Union[str, None]:
         """Extract the spin of the isotope and it's level."""
         # 2020 brought in '*' for directly measured. Just remove it for the moment
         # TODO parse the spin parity with the new characters
