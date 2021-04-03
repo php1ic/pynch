@@ -20,6 +20,19 @@ df = mt.MassTable().full_data
 table_years = df.index.unique()
 variables = df.columns
 
+segre_colours = {
+    'stable': 'black',
+    'B-': 'red',
+    'B+': 'blue',
+    'A': 'yellow',
+    'n' : 'limegreen',
+    '2n' : 'darkgreen',
+    'p' : 'magenta',
+    '2p' : 'purple',
+    'EC' : 'orange',
+    'SF' : 'cyan'
+}
+
 
 @app.callback(
     [
@@ -54,6 +67,7 @@ def update_graph(y_var, x_value, year):
         y="Z",
         hover_name="Symbol",
         color="Decay",
+        color_discrete_map=segre_colours,
         template="plotly_dark",
     )
 
