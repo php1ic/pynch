@@ -25,12 +25,12 @@ segre_colours = {
     'B-': 'red',
     'B+': 'blue',
     'A': 'yellow',
-    'n' : 'limegreen',
-    '2n' : 'darkgreen',
-    'p' : 'magenta',
-    '2p' : 'purple',
-    'EC' : 'orange',
-    'SF' : 'cyan'
+    'n': 'limegreen',
+    '2n': 'darkgreen',
+    'p': 'magenta',
+    '2p': 'purple',
+    'EC': 'orange',
+    'SF': 'cyan'
 }
 
 
