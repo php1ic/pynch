@@ -1,5 +1,6 @@
 """Extract the data from the nubse file."""
 import logging
+import pathlib
 import re
 import typing
 
@@ -14,7 +15,7 @@ class NubaseParser(NubaseFile):
     A collection of functions to parse the weird format of the NUBASE file.
     """
 
-    def __init__(self, filename: str, year: int):
+    def __init__(self, filename: pathlib.Path, year: int):
         """Set the file to read and the table year."""
         self.filename = filename
         self.year = year

@@ -1,5 +1,6 @@
 """Extract the date from the second reaction file."""
 import logging
+import pathlib
 
 import pandas as pd
 
@@ -12,7 +13,7 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
     The format is known but I don't think python can easily parse it.
     """
 
-    def __init__(self, filename: str, year: int):
+    def __init__(self, filename: pathlib.Path, year: int):
         """Set the file to read and table year."""
         self.filename = filename
         self.year = year

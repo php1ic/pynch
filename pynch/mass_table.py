@@ -27,7 +27,7 @@ class MassTable:
         self.full_data = self._combine_all_data()
         self._do_indexing()
 
-    def _get_nubase_datafile(self, year: int) -> str:
+    def _get_nubase_datafile(self, year: int) -> pathlib.Path:
         """Use the given year to locate the nubase mass table file and return the absolute path."""
         nubase_mass = self.data_path / pathlib.Path(str(year))
         nubase_mass = nubase_mass.resolve()
@@ -38,12 +38,12 @@ class MassTable:
             nubase_mass = nubase_mass / "nubtab12.asc"
         elif year == 2016:
             nubase_mass = nubase_mass / "nubase2016.txt"
-        elif year == 2020:
+        else:  # year == 2020:
             nubase_mass = nubase_mass / "nubase_1.mas20"
 
         return nubase_mass
 
-    def _get_ame_datafiles(self, year: int) -> typing.Tuple[str, str, str]:
+    def _get_ame_datafiles(self, year: int) -> typing.Tuple[pathlib.Path, pathlib.Path, pathlib.Path]:
         """Use the given year to locate the 3 AME data file and return the absolute path."""
         data_dir = self.data_path / pathlib.Path(str(year))
         data_dir = data_dir.resolve()
@@ -60,7 +60,7 @@ class MassTable:
             ame_mass = data_dir / "mass16.txt"
             ame_reaction_1 = data_dir / "rct1-16.txt"
             ame_reaction_2 = data_dir / "rct2-16.txt"
-        elif year == 2020:
+        else:  # year == 2020:
             ame_mass = data_dir / "mass.mas20"
             ame_reaction_1 = data_dir / "rct1.mas20"
             ame_reaction_2 = data_dir / "rct2.mas20"
@@ -107,7 +107,7 @@ class MassTable:
         df.loc[(df.Symbol == "C") & (df.A == 12), "NubaseRelativeError"] = 0.0
         df.loc[(df.Symbol == "C") & (df.A == 12), "AMERelativeError"] = 0.0
 
-        # 198Au has a typo in it's decay mode in the 2012 table. It is down as '-'
+        # 198Au has a typo in it's decay mode in the 2012 table. It is recorded as '-'
         df.loc[(df.A == 198) & (df.Z == 79) & (df.TableYear == 2012), 'Decay'] = "B-"
 
         return df
