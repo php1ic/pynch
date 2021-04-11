@@ -10,7 +10,11 @@ class Parse:
     """
 
     def __init__(self):
-        """Construct the symbol to Z map and set the AME header length."""
+        """Construct the symbol to Z map.
+
+        The _read functions could be taken out of the class, but then they wouldn't be inherited by the file parsers,
+        so lets leave them as members for the moment.
+        """
         super(Parse, self).__init__()
         self.z_to_symbol = {
             0: "n", 1: "H", 2: "He", 3: "Li", 4: "Be", 5: "B", 6: "C", 7: "N", 8: "O", 9: "F",
