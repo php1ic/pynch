@@ -4,10 +4,6 @@ from dash.dependencies import Input, Output
 
 import dash_bootstrap_components as dbc
 
-import dash_core_components as dcc
-
-import dash_html_components as html
-
 import plotly.express as px
 
 import pynch.mass_table as mt
@@ -91,7 +87,7 @@ def update_graph(y_var, x_value, year):
         template="plotly_dark",
     )
 
-    title = html.H2(f"A = {x_value}")
+    title = dash.html.H2(f"A = {x_value}")
 
     min_a = df_f["A"].min()
     max_a = df_f["A"].max()
@@ -112,10 +108,10 @@ def update_graph(y_var, x_value, year):
 year_and_variable = dbc.Row(
     [
         dbc.Col(
-            html.Div(
+            dash.html.Div(
                 [
-                    html.H3("Year"),
-                    dcc.Slider(
+                    dash.html.H3("Year"),
+                    dash.dcc.Slider(
                         id="year_slider",
                         min=0,
                         max=len(table_years) - 1,
@@ -126,10 +122,10 @@ year_and_variable = dbc.Row(
             )
         ),
         dbc.Col(
-            html.Div(
+            dash.html.Div(
                 [
-                    html.H3("Value to plot"),
-                    dcc.Dropdown(
+                    dash.html.H3("Value to plot"),
+                    dash.dcc.Dropdown(
                         id="yaxis_dropdown",
                         options=[{"label": i, "value": i} for i in variables],
                         value=variables[7],
@@ -143,17 +139,17 @@ year_and_variable = dbc.Row(
 a_slider = dbc.Row(
     dbc.Col(
         [
-            html.Div(id="graph-title", children=[]),
-            html.Div(dcc.Slider(id="xval_slider", value=50)),
+            dash.html.Div(id="graph-title", children=[]),
+            dash.html.Div(dash.dcc.Slider(id="xval_slider", value=50)),
         ]
     )
 )
 
 graphs = dbc.Row(
     [
-        dbc.Col(dcc.Graph(id="n-graph", figure={}), width=3),
-        dbc.Col(dcc.Graph(id="a-graph", figure={}), width=6),
-        dbc.Col(dcc.Graph(id="z-graph", figure={}), width=3),
+        dbc.Col(dash.dcc.Graph(id="n-graph", figure={}), width=3),
+        dbc.Col(dash.dcc.Graph(id="a-graph", figure={}), width=6),
+        dbc.Col(dash.dcc.Graph(id="z-graph", figure={}), width=3),
     ]
 )
 
