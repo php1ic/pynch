@@ -28,7 +28,7 @@ class Parse:
             80: "Hg", 81: "Tl", 82: "Pb", 83: "Bi", 84: "Po", 85: "At", 86: "Rn", 87: "Fr", 88: "Ra", 89: "Ac",
             90: "Th", 91: "Pa", 92: "U", 93: "Np", 94: "Pu", 95: "Am", 96: "Cm", 97: "Bk", 98: "Cf", 99: "Es",
             100: "Fm", 101: "Md", 102: "No", 103: "Lr", 104: "Rf", 105: "Db", 106: "Sg", 107: "Bh", 108: "Hs", 109: "Mt",
-            110: "Ds", 111: "Rg", 112: "Cn", 113: "Ed", 114: "Fl", 115: "Ef", 116: "Lv", 117: "Eh", 118: "Ei"
+            110: "Ds", 111: "Rg", 112: "Cn", 113: "Ed", 114: "Fl", 115: "Ef", 116: "Lv", 117: "Ts", 118: "Og"
         }
 
     def _read_as_int(self, line: str, start: int, end: int, default: int = None) -> typing.Union[int, None]:
