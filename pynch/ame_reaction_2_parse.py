@@ -27,29 +27,26 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
         if line.find("#") != -1:
             line = line.replace("#", " ")
 
-        data = {"TableYear": self.year}
-        data["A"] = self._read_as_int(line, self.START_R2_A, self.END_R2_A)
-        data["Z"] = self._read_as_int(line, self.START_R2_Z, self.END_R2_Z)
+        data = {
+            "TableYear": self.year,
+            "A": self._read_as_int(line, self.START_R2_A, self.END_R2_A),
+            "Z": self._read_as_int(line, self.START_R2_Z, self.END_R2_Z),
+            "OneNeutronSeparationEnergy": self._read_as_float(line, self.START_SN, self.END_SN),
+            "OneNeutronSeparationEnergyError": self._read_as_float(line, self.START_DSN, self.END_DSN),
+            "OneProtonSeparationEnergy": self._read_as_float(line, self.START_SP, self.END_SP),
+            "OneProtonSeparationEnergyError": self._read_as_float(line, self.START_DSP, self.END_DSP),
+            "QFourBeta": self._read_as_float(line, self.START_Q4B, self.END_Q4B),
+            "QFourBetaError": self._read_as_float(line, self.START_DQ4B, self.END_DQ4B),
+            "QDeuteronAlpha": self._read_as_float(line, self.START_QDA, self.END_QDA),
+            "QDeuteronAlphaError": self._read_as_float(line, self.START_DQDA, self.END_DQDA),
+            "QProtonAlpha": self._read_as_float(line, self.START_QPA, self.END_QPA),
+            "QProtonAlphaError": self._read_as_float(line, self.START_DQPA, self.END_DQPA),
+            "QNeutronAlpha": self._read_as_float(line, self.START_QNA, self.END_QNA),
+            "QNeutronAlphaErrror": self._read_as_float(line, self.START_DQNA, self.END_DQNA),
+        }
+
         data["N"] = data["A"] - data["Z"]
         data["Symbol"] = self.z_to_symbol[data["Z"]]
-
-        data["OneNeutronSeparationEnergy"] = self._read_as_float(line, self.START_SN, self.END_SN)
-        data["OneNeutronSeparationEnergyError"] = self._read_as_float(line, self.START_DSN, self.END_DSN)
-
-        data["OneProtonSeparationEnergy"] = self._read_as_float(line, self.START_SP, self.END_SP)
-        data["OneProtonSeparationEnergyError"] = self._read_as_float(line, self.START_DSP, self.END_DSP)
-
-        data["QFourBeta"] = self._read_as_float(line, self.START_Q4B, self.END_Q4B)
-        data["QFourBetaError"] = self._read_as_float(line, self.START_DQ4B, self.END_DQ4B)
-
-        data["QDeuteronAlpha"] = self._read_as_float(line, self.START_QDA, self.END_QDA)
-        data["QDeuteronAlphaError"] = self._read_as_float(line, self.START_DQDA, self.END_DQDA)
-
-        data["QProtonAlpha"] = self._read_as_float(line, self.START_QPA, self.END_QPA)
-        data["QProtonAlphaError"] = self._read_as_float(line, self.START_DQPA, self.END_DQPA)
-
-        data["QNeutronAlpha"] = self._read_as_float(line, self.START_QNA, self.END_QNA)
-        data["QNeutronAlphaErrror"] = self._read_as_float(line, self.START_DQNA, self.END_DQNA)
 
         return data
 
@@ -59,7 +56,7 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
             lines = [line.rstrip() for line in f]
 
         # Remove the header lines and the footer for the 2020 table
-        lines = lines[self.HEADER:self.FOOTER]
+        lines = lines[self.HEADER : self.FOOTER]
 
         # The 2020 rct2 file has additional lines feeds not present in any other file
         the_lines = [line for line in lines if line[:1] != "1"]

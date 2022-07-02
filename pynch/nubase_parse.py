@@ -85,38 +85,34 @@ class NubaseParser(NubaseFile):
             return dict()
 
         exp = True if line.find("#") == -1 else False
-
-        data = {"Experimental": exp}
         if not exp:
             line = line.replace("#", " ")
 
-        data["TableYear"] = self.year
-        data["A"] = self._read_as_int(line, self.START_A, self.END_A)
-        data["Z"] = self._read_as_int(line, self.START_Z, self.END_Z)
-        data["N"] = data["A"] - data["Z"]
-        data["Symbol"] = self.z_to_symbol[data["Z"]]
-
-        data["NubaseMassExcess"] = self._read_as_float(line, self.START_ME, self.END_ME)
-        data["NubaseMassExcessError"] = self._read_as_float(
-            line, self.START_DME, self.END_DME
-        )
-        # data["LevelEnergy"] = self._read_as_float(
-        #     line, self.START_ISOMER, self.END_ISOMER
-        # )
-        # data["LevelEnergyError"] = self._read_as_float(
-        #     line, self.START_DISOMER, self.END_DISOMER
-        # )
+        data = {
+            "Experimental" : exp,
+            "TableYear": self.year,
+            "A" : self._read_as_int(line, self.START_A, self.END_A),
+            "Z" : self._read_as_int(line, self.START_Z, self.END_Z),
+            "NubaseMassExcess" : self._read_as_float(line, self.START_ME, self.END_ME),
+            "NubaseMassExcessError" : self._read_as_float(line, self.START_DME, self.END_DME),
+            # "LevelEnergy" : self._read_as_float(,
+            #     line, self.START_ISOMER, self.END_ISOMER
+            # )
+            # "LevelEnergyError" : self._read_as_float(,
+            #     line, self.START_DISOMER, self.END_DISOMER
+            # )
+            "LevelSpin" : self._read_spin(line),
+            "DiscoveryYear" : (
+                self._read_as_int(line, self.START_YEAR, self.END_YEAR, default=1900)
+                if self.year != 2003
+                else 1900
+            ),
+            "Decay" : self._read_decay_string(line),
+        }
 
         data["HalfLifeValue"], data["HalfLifeUnit"], data["HalfLifeError"] = self._read_all_halflife_data(line)
-
-        data["LevelSpin"] = self._read_spin(line)
-
-        data["DiscoveryYear"] = (
-            self._read_as_int(line, self.START_YEAR, self.END_YEAR, default=1900)
-            if self.year != 2003
-            else 1900
-        )
-        data["Decay"] = self._read_decay_string(line)
+        data["N"] = data["A"] - data["Z"]
+        data["Symbol"] = self.z_to_symbol[data["Z"]]
 
         return data
 

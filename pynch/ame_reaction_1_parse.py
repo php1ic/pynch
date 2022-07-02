@@ -27,29 +27,26 @@ class AMEReactionParserOne(AMEReactionFileOne):
         if line.find("#") != -1:
             line = line.replace("#", " ")
 
-        data = {"TableYear": self.year}
-        data["A"] = self._read_as_int(line, self.START_R1_A, self.END_R1_A)
-        data["Z"] = self._read_as_int(line, self.START_R1_Z, self.END_R1_Z)
+        data = {
+            "TableYear": self.year,
+            "A": self._read_as_int(line, self.START_R1_A, self.END_R1_A),
+            "Z": self._read_as_int(line, self.START_R1_Z, self.END_R1_Z),
+            "TwoNeutronSeparationEnergy": self._read_as_float(line, self.START_S2N, self.END_S2N),
+            "TwoNeutronSeparationEnergyError": self._read_as_float(line, self.START_DS2N, self.END_DS2N),
+            "TwoProtonSeparationEnergy": self._read_as_float(line, self.START_S2P, self.END_S2P),
+            "TwoProtonSeparationEnergyError": self._read_as_float(line, self.START_DS2P, self.END_DS2P),
+            "QAlpha": self._read_as_float(line, self.START_QA, self.END_QA),
+            "QAlphaError": self._read_as_float(line, self.START_DQA, self.END_DQA),
+            "QTwoBeta": self._read_as_float(line, self.START_Q2B, self.END_Q2B),
+            "QTwoBetaError": self._read_as_float(line, self.START_DQ2B, self.END_DQ2B),
+            "QEpsilon": self._read_as_float(line, self.START_QEP, self.END_QEP),
+            "QEpsilonError": self._read_as_float(line, self.START_DQEP, self.END_DQEP),
+            "QBetaNeutron": self._read_as_float(line, self.START_QBN, self.END_QBN),
+            "QBetaNeutronError": self._read_as_float(line, self.START_DQBN, self.END_DQBN),
+        }
+
         data["N"] = data["A"] - data["Z"]
         data["Symbol"] = self.z_to_symbol[data["Z"]]
-
-        data["TwoNeutronSeparationEnergy"] = self._read_as_float(line, self.START_S2N, self.END_S2N)
-        data["TwoNeutronSeparationEnergyError"] = self._read_as_float(line, self.START_DS2N, self.END_DS2N)
-
-        data["TwoProtonSeparationEnergy"] = self._read_as_float(line, self.START_S2P, self.END_S2P)
-        data["TwoProtonSeparationEnergyError"] = self._read_as_float(line, self.START_DS2P, self.END_DS2P)
-
-        data["QAlpha"] = self._read_as_float(line, self.START_QA, self.END_QA)
-        data["QAlphaError"] = self._read_as_float(line, self.START_DQA, self.END_DQA)
-
-        data["QTwoBeta"] = self._read_as_float(line, self.START_Q2B, self.END_Q2B)
-        data["QTwoBetaError"] = self._read_as_float(line, self.START_DQ2B, self.END_DQ2B)
-
-        data["QEpsilon"] = self._read_as_float(line, self.START_QEP, self.END_QEP)
-        data["QEpsilonError"] = self._read_as_float(line, self.START_DQEP, self.END_DQEP)
-
-        data["QBetaNeutron"] = self._read_as_float(line, self.START_QBN, self.END_QBN)
-        data["QBetaNeutronError"] = self._read_as_float(line, self.START_DQBN, self.END_DQBN)
 
         return data
 
@@ -59,6 +56,6 @@ class AMEReactionParserOne(AMEReactionFileOne):
             lines = [line.rstrip() for line in f]
 
         # Remove the header lines
-        lines = lines[self.HEADER:self.FOOTER]
+        lines = lines[self.HEADER : self.FOOTER]
 
         return pd.DataFrame.from_dict([self._read_line(line) for line in lines])
