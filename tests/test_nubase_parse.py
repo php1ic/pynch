@@ -6,7 +6,6 @@ def test_read_halflife_value():
     parser = nbp.NubaseParser(pathlib.Path("."), 2003)
 
     line_01 = "232 0950   232Am   43400#     300#                             1.31   m 0.04                 91           B+=?;A=2#;B+SF=0.069 10"
-
     assert parser._read_halflife_value(line_01) == 1.31
 
     line_02 = "052 0290   52Cu    -2630#     260#                                             3+#           00           p ?"
@@ -21,6 +20,13 @@ def test_read_halflife_error():
 
     line_02 = "025 0150   25P     18870#     200#                           <30     ns        1/2+#         00 93Po.Ai   p ?"
     assert not parser._read_halflife_error(line_02)
+
+
+def test_no_decay_mode():
+    parser = nbp.NubaseParser(pathlib.Path("."), 2012)
+    
+    no_decay = "044 0212   44Scn  -37669.9      1.8     146.224   0.022       50.4   us 0.7    0-            99"
+    assert parser._read_decay_string(no_decay) is "UNKNOWN"
 
 
 def test_readable_line():
@@ -83,6 +89,7 @@ def test_read_line():
     # Use the same isotope as previously tested
     gs_line = "057 0290   57Cu   -47309.0        0.5                                 196.4   ms 0.7    3/2-*         98          1976 B+=100"
     d = parser._read_line(gs_line)
+
     assert d['A'] == 57
     assert d['Z'] == 29
     assert d['N'] == 28
