@@ -66,6 +66,8 @@ class NubaseParser(NubaseFile):
             else self._read_substring(line, self.START_DECAYSTRING, len(line))
         )
 
+        if decay_string is None:
+            decay_string = "UNKNOWN"
         # Get the first value in the ';' separated list
         # Get the initial part of the first value
         filtered = re.split('=| |~|<|>', decay_string.split(';')[0])[0]
@@ -81,7 +83,8 @@ class NubaseParser(NubaseFile):
     def _read_line(self, line: str) -> dict:
         """Read a line of the file."""
         # Ignore isomers for the moment
-        if self._read_as_int(line, self.START_STATE, self.END_STATE) > 0:
+        state = self._read_as_int(line, self.START_STATE, self.END_STATE)  
+        if state is None or state > 0:
             return dict()
 
         exp = True if line.find("#") == -1 else False
