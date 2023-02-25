@@ -1,8 +1,9 @@
 from pynch.ame_reaction_2_parse import AMEReactionParserTwo
 
+import pathlib
 
 def test_read_line():
-    parser = AMEReactionParserTwo(".", 2003)
+    parser = AMEReactionParserTwo(pathlib.Path("."), 2003)
     line = " 204 Tl  81    6656.10    0.29   6365.82    1.25 -12470.66   24.01  13710.69    1.15   8181.34    1.16   7701.54    3.34"
     d = parser._read_line(line)
 
@@ -22,7 +23,7 @@ def test_read_line():
     assert d['QNeutronAlpha'] == 7701.54
     assert d['QNeutronAlphaErrror'] == 3.34
 
-    parser = AMEReactionParserTwo(".", 2012)
+    parser = AMEReactionParserTwo(pathlib.Path("."), 2012)
     line = " 204 Tl  81    6656.09    0.29   6365.80    1.25 -12470.19   22.31  13710.68    1.14   8181.16    1.15   7701.67    3.33"
     d = parser._read_line(line)
 
@@ -42,7 +43,7 @@ def test_read_line():
     assert d['QNeutronAlpha'] == 7701.67
     assert d['QNeutronAlphaErrror'] == 3.33
 
-    parser = AMEReactionParserTwo(".", 2016)
+    parser = AMEReactionParserTwo(pathlib.Path("."), 2016)
     line = " 204 Tl  81    6656.08    0.29   6365.85    1.25 -12470.71   22.32  13709.99    1.06   8180.45    1.07   7700.97    3.31"
     d = parser._read_line(line)
 
@@ -63,7 +64,7 @@ def test_read_line():
     assert d['QNeutronAlphaErrror'] == 3.31
 
 
-    parser = AMEReactionParserTwo(".", 2020)
+    parser = AMEReactionParserTwo(pathlib.Path("."), 2020)
     line = " 204 Tl  81    6656.0787    0.2907   6365.8379    1.2542 -12470.8182   22.6974  13710.0469    1.0612   8180.5147    1.0721   7701.0380    3.3084"
     d = parser._read_line(line)
 

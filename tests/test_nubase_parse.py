@@ -1,10 +1,9 @@
-# from pynch.nubase_parse import NubaseParser
-# import pynch as py
 import pynch.nubase_parse as nbp
 
+import pathlib
 
 def test_read_halflife_value():
-    parser = nbp.NubaseParser(".", 2003)
+    parser = nbp.NubaseParser(pathlib.Path("."), 2003)
 
     line_01 = "232 0950   232Am   43400#     300#                             1.31   m 0.04                 91           B+=?;A=2#;B+SF=0.069 10"
 
@@ -15,7 +14,7 @@ def test_read_halflife_value():
 
 
 def test_read_halflife_error():
-    parser = nbp.NubaseParser(".", 2003)
+    parser = nbp.NubaseParser(pathlib.Path("."), 2003)
 
     line_01 = "113 0500   113Sn  -88333        4                            115.09   d 0.03   1/2+          00           B+=100"
     assert parser._read_halflife_error(line_01) == 0.03
@@ -25,7 +24,7 @@ def test_read_halflife_error():
 
 
 def test_readable_line():
-    parser = nbp.NubaseParser(".", 2003)
+    parser = nbp.NubaseParser(pathlib.Path("."), 2003)
 
     bad_line01 = "003 0030   3Li     28670#    2000#                      RN   p-unst                          98           p ?"
     bad_line02 = "130 0556   130Csx -86873       17        27      15         R=.2~~~.1          fsmix"
@@ -41,7 +40,7 @@ def test_readable_line():
 
 
 def test_read_line():
-    parser = nbp.NubaseParser(".", 2003)
+    parser = nbp.NubaseParser(pathlib.Path("."), 2003)
 
     iso_line = "183 0791   183Aum -30114       10        73.3     0.4         >1     us        (1/2)+        99           IT=100"
     assert parser._read_line(iso_line) == dict()
@@ -79,7 +78,7 @@ def test_read_line():
     assert d['Decay'] == "B+"
 
     # 2020 table has a new format
-    parser = nbp.NubaseParser(".", 2020)
+    parser = nbp.NubaseParser(pathlib.Path("."), 2020)
 
     # Use the same isotope as previously tested
     gs_line = "057 0290   57Cu   -47309.0        0.5                                 196.4   ms 0.7    3/2-*         98          1976 B+=100"
