@@ -131,4 +131,4 @@ class NubaseParser(NubaseFile):
             self._read_line(line) for line in lines if self._readable_line(line)
         ]
 
-        return pd.DataFrame.from_dict([d for d in the_lines if d])
+        return pd.DataFrame([d for d in the_lines if d])

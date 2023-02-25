@@ -61,4 +61,4 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
         # The 2020 rct2 file has additional lines feeds not present in any other file
         the_lines = [line for line in lines if line[:1] != "1"]
 
-        return pd.DataFrame.from_dict([self._read_line(line) for line in the_lines])
+        return pd.DataFrame([self._read_line(line) for line in the_lines])
