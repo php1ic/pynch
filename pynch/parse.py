@@ -31,17 +31,17 @@ class Parse:
             110: "Ds", 111: "Rg", 112: "Cn", 113: "Ed", 114: "Fl", 115: "Ef", 116: "Lv", 117: "Ts", 118: "Og"
         }
 
-    def _read_as_int(self, line: str, start: int, end: int, default: int = None) -> typing.Union[int, None]:
+    def _read_as_int(self, line: str, start: int, end: int, default: int = None) -> typing.Optional[int]:
         """Slice the string and return as an int, or None if the slice is empty."""
         data = line[start:end].strip()
         return int(data) if data else default
 
-    def _read_as_float(self, line: str, start: int, end: int, default: float = None) -> typing.Union[float, None]:
+    def _read_as_float(self, line: str, start: int, end: int, default: float = None) -> typing.Optional[float]:
         """Slice the string and return as a float, or None if the slice is empty or just a '*' character."""
         data = line[start:end].strip()
         return float(data) if data and data != "*" else default
 
-    def _read_substring(self, line: str, start: int, end: int, default: str = None) -> typing.Union[str, None]:
+    def _read_substring(self, line: str, start: int, end: int, default: str = None) -> typing.Optional[str]:
         """Slice the string or return None if the slice is empty."""
         data = line[start:end].strip()
         return data if data else default
