@@ -83,7 +83,7 @@ class NubaseParser(NubaseFile):
     def _read_line(self, line: str) -> dict:
         """Read a line of the file."""
         # Ignore isomers for the moment
-        state = self._read_as_int(line, self.START_STATE, self.END_STATE)  
+        state = self._read_as_int(line, self.START_STATE, self.END_STATE)
         if state is None or state > 0:
             return dict()
 
@@ -92,25 +92,25 @@ class NubaseParser(NubaseFile):
             line = line.replace("#", " ")
 
         data = {
-            "Experimental" : exp,
+            "Experimental": exp,
             "TableYear": self.year,
-            "A" : self._read_as_int(line, self.START_A, self.END_A),
-            "Z" : self._read_as_int(line, self.START_Z, self.END_Z),
-            "NubaseMassExcess" : self._read_as_float(line, self.START_ME, self.END_ME),
-            "NubaseMassExcessError" : self._read_as_float(line, self.START_DME, self.END_DME),
+            "A": self._read_as_int(line, self.START_A, self.END_A),
+            "Z": self._read_as_int(line, self.START_Z, self.END_Z),
+            "NubaseMassExcess": self._read_as_float(line, self.START_ME, self.END_ME),
+            "NubaseMassExcessError": self._read_as_float(line, self.START_DME, self.END_DME),
             # "LevelEnergy" : self._read_as_float(,
             #     line, self.START_ISOMER, self.END_ISOMER
             # )
             # "LevelEnergyError" : self._read_as_float(,
             #     line, self.START_DISOMER, self.END_DISOMER
             # )
-            "LevelSpin" : self._read_spin(line),
-            "DiscoveryYear" : (
+            "LevelSpin": self._read_spin(line),
+            "DiscoveryYear": (
                 self._read_as_int(line, self.START_YEAR, self.END_YEAR, default=1900)
                 if self.year != 2003
                 else 1900
             ),
-            "Decay" : self._read_decay_string(line),
+            "Decay": self._read_decay_string(line),
         }
 
         data["HalfLifeValue"], data["HalfLifeUnit"], data["HalfLifeError"] = self._read_all_halflife_data(line)

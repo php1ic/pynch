@@ -56,6 +56,6 @@ class AMEReactionParserOne(AMEReactionFileOne):
             lines = [line.rstrip() for line in f]
 
         # Remove the header lines
-        lines = lines[self.HEADER : self.FOOTER]
+        lines = lines[self.HEADER: self.FOOTER]
 
         return pd.DataFrame([self._read_line(line) for line in lines])
