@@ -22,13 +22,13 @@ class NubaseParser(NubaseFile):
         super().__init__(self.year)
         logging.info(f"Reading {self.filename} from {self.year}")
 
-    def _read_halflife_value(self, line: str) -> typing.Union[float, None]:
+    def _read_halflife_value(self, line: str) -> typing.Optional[float]:
         """Slice the string to get the numerical value or None if it's empty."""
         data = line[self.START_HALFLIFEVALUE: self.END_HALFLIFEVALUE].strip()
         number = re.sub(r"[<>?~]", "", data)
         return float(number) if number else None
 
-    def _read_halflife_error(self, line: str) -> typing.Union[float, None]:
+    def _read_halflife_error(self, line: str) -> typing.Optional[float]:
         """Slice the string to get the numerical value or None if it's empty."""
         data = line[self.START_HALFLIFEERROR: self.END_HALFLIFEERROR].strip()
         number = re.sub(r"[<>?~a-z]", "", data)
@@ -48,7 +48,7 @@ class NubaseParser(NubaseFile):
             self._read_halflife_error(line)
         )
 
-    def _read_spin(self, line: str) -> typing.Union[str, None]:
+    def _read_spin(self, line: str) -> typing.Optional[str]:
         """Extract the spin of the isotope and it's level."""
         # 2020 brought in '*' for directly measured. Just remove it for the moment
         # TODO parse the spin parity with the new characters
