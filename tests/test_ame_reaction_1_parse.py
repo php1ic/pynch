@@ -2,6 +2,7 @@ from pynch.ame_reaction_1_parse import AMEReactionParserOne
 
 import pathlib
 
+
 def test_read_line():
     parser = AMEReactionParserOne(pathlib.Path("."), 2003)
     line = " 186 Ir  77   15704.74   32.47   9524.26   17.08   3849.65  103.31  -7458.10   26.70  -2639.77   16.57 -10561.10   44.19"

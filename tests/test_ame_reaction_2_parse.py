@@ -2,6 +2,7 @@ from pynch.ame_reaction_2_parse import AMEReactionParserTwo
 
 import pathlib
 
+
 def test_read_line():
     parser = AMEReactionParserTwo(pathlib.Path("."), 2003)
     line = " 204 Tl  81    6656.10    0.29   6365.82    1.25 -12470.66   24.01  13710.69    1.15   8181.34    1.16   7701.54    3.34"
@@ -62,7 +63,6 @@ def test_read_line():
     assert d['QProtonAlphaError'] == 1.07
     assert d['QNeutronAlpha'] == 7700.97
     assert d['QNeutronAlphaError'] == 3.31
-
 
     parser = AMEReactionParserTwo(pathlib.Path("."), 2020)
     line = " 204 Tl  81    6656.0787    0.2907   6365.8379    1.2542 -12470.8182   22.6974  13710.0469    1.0612   8180.5147    1.0721   7701.0380    3.3084"

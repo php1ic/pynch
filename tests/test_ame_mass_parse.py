@@ -2,6 +2,7 @@ from pynch.ame_mass_parse import AMEMassParser
 
 import pathlib
 
+
 def test_read_line():
     parser = AMEMassParser(pathlib.Path("."), 2003)
     line = "  15   41   26   67 Fe    x  -45692.348    415.570     8449.695    6.203 B-   9368.702  523.438  66 950947.244    446.132"

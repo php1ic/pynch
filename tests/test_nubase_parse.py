@@ -2,6 +2,7 @@ import pynch.nubase_parse as nbp
 
 import pathlib
 
+
 def test_read_halflife_value():
     parser = nbp.NubaseParser(pathlib.Path("."), 2003)
 
@@ -24,9 +25,9 @@ def test_read_halflife_error():
 
 def test_no_decay_mode():
     parser = nbp.NubaseParser(pathlib.Path("."), 2012)
-    
+
     no_decay = "044 0212   44Scn  -37669.9      1.8     146.224   0.022       50.4   us 0.7    0-            99"
-    assert parser._read_decay_string(no_decay) is "UNKNOWN"
+    assert parser._read_decay_string(no_decay) == "UNKNOWN"
 
 
 def test_readable_line():
