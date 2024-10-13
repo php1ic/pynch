@@ -42,7 +42,7 @@ class AMEReactionParserTwo(AMEReactionFileTwo):
             "QProtonAlpha": self._read_as_float(line, self.START_QPA, self.END_QPA),
             "QProtonAlphaError": self._read_as_float(line, self.START_DQPA, self.END_DQPA),
             "QNeutronAlpha": self._read_as_float(line, self.START_QNA, self.END_QNA),
-            "QNeutronAlphaErrror": self._read_as_float(line, self.START_DQNA, self.END_DQNA),
+            "QNeutronAlphaError": self._read_as_float(line, self.START_DQNA, self.END_DQNA),
         }
 
         data["N"] = data["A"] - data["Z"]
