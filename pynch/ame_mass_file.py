@@ -7,7 +7,7 @@ class AMEMassFile(Parse):
 
     def __init__(self, year: int):
         """Setup up the values."""
-        super(AMEMassFile, self).__init__()
+        super().__init__()
         if year < 2020:
             self.HEADER = 39
             self.FOOTER = None

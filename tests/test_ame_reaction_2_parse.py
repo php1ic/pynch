@@ -21,7 +21,7 @@ def test_read_line():
     assert d['QProtonAlpha'] == 8181.34
     assert d['QProtonAlphaError'] == 1.16
     assert d['QNeutronAlpha'] == 7701.54
-    assert d['QNeutronAlphaErrror'] == 3.34
+    assert d['QNeutronAlphaError'] == 3.34
 
     parser = AMEReactionParserTwo(pathlib.Path("."), 2012)
     line = " 204 Tl  81    6656.09    0.29   6365.80    1.25 -12470.19   22.31  13710.68    1.14   8181.16    1.15   7701.67    3.33"
@@ -41,7 +41,7 @@ def test_read_line():
     assert d['QProtonAlpha'] == 8181.16
     assert d['QProtonAlphaError'] == 1.15
     assert d['QNeutronAlpha'] == 7701.67
-    assert d['QNeutronAlphaErrror'] == 3.33
+    assert d['QNeutronAlphaError'] == 3.33
 
     parser = AMEReactionParserTwo(pathlib.Path("."), 2016)
     line = " 204 Tl  81    6656.08    0.29   6365.85    1.25 -12470.71   22.32  13709.99    1.06   8180.45    1.07   7700.97    3.31"
@@ -61,7 +61,7 @@ def test_read_line():
     assert d['QProtonAlpha'] == 8180.45
     assert d['QProtonAlphaError'] == 1.07
     assert d['QNeutronAlpha'] == 7700.97
-    assert d['QNeutronAlphaErrror'] == 3.31
+    assert d['QNeutronAlphaError'] == 3.31
 
 
     parser = AMEReactionParserTwo(pathlib.Path("."), 2020)
@@ -82,4 +82,4 @@ def test_read_line():
     assert d['QProtonAlpha'] == 8180.5147
     assert d['QProtonAlphaError'] == 1.0721
     assert d['QNeutronAlpha'] == 7701.0380
-    assert d['QNeutronAlphaErrror'] == 3.3084
+    assert d['QNeutronAlphaError'] == 3.3084

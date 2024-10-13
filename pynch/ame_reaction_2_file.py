@@ -7,7 +7,7 @@ class AMEReactionFileTwo(Parse):
 
     def __init__(self, year: int):
         """Setup the values that locate the variables."""
-        super(AMEReactionFileTwo, self).__init__()
+        super().__init__()
         if year < 2020:
             self.HEADER = 39
             self.FOOTER = None
