@@ -11,7 +11,7 @@ venv*/
 
 # Jupyter related files and directories
 *.ipynb
-.ipnb_checkpoints/
+.ipynb_checkpoints/
 
 # Test coverage related files and directories
 .coverage
