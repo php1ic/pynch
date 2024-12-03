@@ -1,0 +1,8 @@
+[project]
+name = "pynch"
+version = "1.0.0"
+dynamic = ["dependencies"]
+[tool.setuptools]
+package-dir = {"" = "pynch"}
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
