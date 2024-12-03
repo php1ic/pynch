@@ -43,7 +43,7 @@ No comparison or validation is done on common values.
 
 ## Additional uses
 
-If you want to do your own thing with the data, you could import this module, access `MassTable().full_data`, then sort, slice and filter the resultant dataframe to your heart's content.
+If you want to do your own thing with the data, you could install this package, import this module, access `MassTable().full_data`, then sort, slice and filter the resultant dataframe to your heart's content. You can install this package with `pip install git+<package-repo>` where `<package-repo>` is the git repository of this package.
 
 For example, track how the accuracy of the mass excess of 18B changes once it is experimentally measured
 ```python
