@@ -1,8 +1,16 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "pynch"
-version = "1.0.0"
-dynamic = ["dependencies"]
+dynamic = ["dependencies", "version"]
+
 [tool.setuptools]
-package-dir = {"" = "pynch"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

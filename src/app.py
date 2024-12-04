@@ -53,7 +53,7 @@ def update_graph(y_var, x_value, year):
 
     logit = (
         True
-        if y_var in ["HalfLife", "NubaseRelativeError", "AMERelativeError"]
+        if y_var in ["HalfLife", "NUBASERelativeError", "AMERelativeError"]
         else False
     )
 

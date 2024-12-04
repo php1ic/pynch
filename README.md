@@ -26,7 +26,7 @@ pip install --user -r requirements.txt
 
 With all of the necessary requirements installed, the below will start the app
 ```bash
-python3 app.py
+python3 src/app.py
 ```
 The console will tell you where to point your browser - likely http://127.0.0.1:8050/.
 
