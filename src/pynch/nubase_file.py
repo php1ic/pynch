@@ -2,7 +2,7 @@
 from pynch.parse import Parse
 
 
-class NubaseFile(Parse):
+class NUBASEFile(Parse):
     """Easy access to where variables are in the NUBASE file.
 
     The NUBASE data file is formatted by location in the line, values exist
