@@ -1,4 +1,5 @@
 """Functionality to parse all data file into a single object."""
+import importlib.resources
 import logging
 import pathlib
 import typing
@@ -19,8 +20,8 @@ class MassTable:
 
     def __init__(self):
         """Do all of the work at construction."""
-        # Assume this file is some/path/pynch/pynch/mass_table.py
-        self.data_path = pathlib.Path(__file__) / ".." / ".." / "data"
+        self.data_path = importlib.resources.files("pynch.data")
+        print(self.data_path)
         self.existing_years = [2003, 2012, 2016, 2020]
         self.nubase = pd.concat([self._parse_nubase_data(y) for y in self.existing_years], ignore_index=True)
         self.ame = pd.concat([self._parse_ame_data(y) for y in self.existing_years], ignore_index=True)

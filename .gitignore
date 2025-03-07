@@ -16,3 +16,6 @@ venv*/
 # Test coverage related files and directories
 .coverage
 coverage_html_report
+
+# Package build files and folders
+*.egg-info/

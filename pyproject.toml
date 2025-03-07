@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pynch"
+authors = [
+  {name = "Ian Cullen"},
+]
+description = "A python package to parse and store the various files published by AME and NUBASE"
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent",
+  "Topic :: Education",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  "pandas",
+  "pytest",
+]
+keywords = [
+ "nuclear",
+ "physics",
+ "decay",
+ "AME",
+ "NUBASE",
+]
+
+[project.optional-dependencies]
+dev = [
+  "coverage",
+]
+
+[project.urls]
+GitHub = "https://github.com/php1ic/pynch"
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+
+[tool.setuptools.packages.find]
+include = ["pynch"]
+
+[tool.setuptools.package-data]
+pynch = [
+ "data/2003/*.*", 
+ "data/2012/*.*", 
+ "data/2016/*.*", 
+ "data/2020/*.*", 
+]
