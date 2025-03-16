@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pynch"
 authors = [
   {name = "Ian Cullen"},
+  {name = "Soham Pal"},
 ]
 description = "A python package to parse and store the various files published by AME and NUBASE"
 version = "0.0.1"
