@@ -9,7 +9,7 @@ import pandas as pd
 from pynch.ame_mass_parse import AMEMassParser
 from pynch.ame_reaction_1_parse import AMEReactionParserOne
 from pynch.ame_reaction_2_parse import AMEReactionParserTwo
-from pynch.nubase_parse import NubaseParser
+from pynch.nubase_parse import NUBASEParser
 
 
 class MassTable:
@@ -79,7 +79,7 @@ class MassTable:
     def _parse_nubase_data(self, year: int) -> pd.DataFrame:
         """Get the nubase for the given year as a pandas.DataFrame."""
         year = self._validate_year(year)
-        return NubaseParser(self._get_nubase_datafile(year), year).read_file()
+        return NUBASEParser(self._get_nubase_datafile(year), year).read_file()
 
     def _parse_ame_data(self, year: int) -> pd.DataFrame:
         """Combine all the AME files from the given year into a pandas.DataFrame."""
@@ -98,14 +98,14 @@ class MassTable:
         common_columns = ['A', 'Z', 'N', 'TableYear', 'Symbol']
         df = self.nubase.merge(self.ame, on=common_columns)
 
-        df["NubaseRelativeError"] = abs(
-            df["NubaseMassExcessError"] / df["NubaseMassExcess"]
+        df["NUBASERelativeError"] = abs(
+            df["NUBASEMassExcessError"] / df["NUBASEMassExcess"]
         )
         df["AMERelativeError"] = abs(df["AMEMassExcessError"] / df["AMEMassExcess"])
 
         # 12C has a 0.0 +/ 0.0 mass excess by definition so calculating relative error -> NaN
         # Set the value to 0.0 as that's what it is
-        df.loc[(df.Symbol == "C") & (df.A == 12), "NubaseRelativeError"] = 0.0
+        df.loc[(df.Symbol == "C") & (df.A == 12), "NUBASERelativeError"] = 0.0
         df.loc[(df.Symbol == "C") & (df.A == 12), "AMERelativeError"] = 0.0
 
         # 198Au has a typo in it's decay mode in the 2012 table. It is recorded as '-'

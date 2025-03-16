@@ -40,8 +40,8 @@ For example, track how the accuracy of the mass excess of 18B changes once it is
 ```python
 >>> import pynch.mass_table as mt
 >>> df = mt.MassTable().full_data
->>> df[(df['A'] == 18) & (df['Z'] == 5)][['Experimental', 'NubaseMassExcess', 'NubaseMassExcessError', 'NubaseRelativeError', 'DiscoveryYear']]
-           Experimental  NubaseMassExcess  NubaseMassExcessError  NubaseRelativeError  DiscoveryYear
+>>> df[(df['A'] == 18) & (df['Z'] == 5)][['Experimental', 'NUBASEMassExcess', 'NUBASEMassExcessError', 'NUBASERelativeError', 'DiscoveryYear']]
+           Experimental  NUBASEMassExcess  NUBASEMassExcessError  NUBASERelativeError  DiscoveryYear
 TableYear
 2003              False           52320.0                  800.0             0.015291           1900
 2012               True           51850.0                  170.0             0.003279           2010
@@ -52,7 +52,7 @@ Or for all of the A=100 isotopes from the 2012 table that have a mass-excess err
 ```python
 >>> import pynch.mass_table as mt
 >>> df = mt.MassTable().full_data
->>> df.query('TableYear == 2012 and A == 100 and NubaseMassExcessError < 10.0')[['A', 'Z', 'Symbol', 'DiscoveryYear']]
+>>> df.query('TableYear == 2012 and A == 100 and NUBASEMassExcessError < 10.0')[['A', 'Z', 'Symbol', 'DiscoveryYear']]
              A   Z Symbol  DiscoveryYear
 TableYear
 2012       100  40     Zr           1970
@@ -68,12 +68,12 @@ Or how does the NUBASE mass-excess compare with the AME value for experimentally
 >>> import pynch.mass_table as mt
 >>> df = mt.MassTable().full_data
 >>> # Create a new column comparing the measured values
->>> df['NUBASE-AME'] = df['NubaseMassExcess'] - df['AMEMassExcess']
+>>> df['NUBASE-AME'] = df['NUBASEMassExcess'] - df['AMEMassExcess']
 >>> # Extract the data for measured isotopes and from the latest table
 >>> df_comparison = df.query('TableYear == 2020 and Experimental == True')
 >>> # Sort the difference in measured data by absolute value and print the columns we are interested in
->>> df_comparison.sort_values(by=['NUBASE-AME'], key=abs, ascending=False)[['A', 'Z', 'Symbol', 'NubaseMassExcess', 'AMEMassExcess', 'NUBASE-AME']].head(n=10)
-             A   Z Symbol  NubaseMassExcess  AMEMassExcess  NUBASE-AME
+>>> df_comparison.sort_values(by=['NUBASE-AME'], key=abs, ascending=False)[['A', 'Z', 'Symbol', 'NUBASEMassExcess', 'AMEMassExcess', 'NUBASE-AME']].head(n=10)
+             A   Z Symbol  NUBASEMassExcess  AMEMassExcess  NUBASE-AME
 TableYear
 2020       221  91     Pa           20370.0      20374.937      -4.937
 2020        57  23      V          -44440.0     -44435.063      -4.937

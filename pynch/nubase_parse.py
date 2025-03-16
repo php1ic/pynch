@@ -6,10 +6,10 @@ import typing
 
 import pandas as pd
 
-from pynch.nubase_file import NubaseFile
+from pynch.nubase_file import NUBASEFile
 
 
-class NubaseParser(NubaseFile):
+class NUBASEParser(NUBASEFile):
     """Parse the NUBASE data file.
 
     A collection of functions to parse the weird format of the NUBASE file.
@@ -96,8 +96,8 @@ class NubaseParser(NubaseFile):
             "TableYear": self.year,
             "A": self._read_as_int(line, self.START_A, self.END_A),
             "Z": self._read_as_int(line, self.START_Z, self.END_Z),
-            "NubaseMassExcess": self._read_as_float(line, self.START_ME, self.END_ME),
-            "NubaseMassExcessError": self._read_as_float(line, self.START_DME, self.END_DME),
+            "NUBASEMassExcess": self._read_as_float(line, self.START_ME, self.END_ME),
+            "NUBASEMassExcessError": self._read_as_float(line, self.START_DME, self.END_DME),
             # "LevelEnergy" : self._read_as_float(,
             #     line, self.START_ISOMER, self.END_ISOMER
             # )
