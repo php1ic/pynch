@@ -1,6 +1,5 @@
 > [!IMPORTANT]
-> Development has moved to a new repo - https://github.com/php1ic/nuclearmasses
-> This repo will soon be archived
+> Development has moved to a new repo - https://github.com/php1ic/nuclearmasses - This repo will soon be archived
 
 # PyNCH - The Python Nuclear CHart
 
