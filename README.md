@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> Development has moved to a new repo - https://github.com/php1ic/nuclearmasses
+> This repo will soon be archived
+
 # PyNCH - The Python Nuclear CHart
 
 [![Unit Tests](https://github.com/php1ic/pynch/actions/workflows/ci.yml/badge.svg)](https://github.com/php1ic/pynch/actions/workflows/ci.yml)
